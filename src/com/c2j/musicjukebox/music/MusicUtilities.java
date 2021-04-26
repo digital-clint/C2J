@@ -8,6 +8,7 @@ public interface MusicUtilities {
     public Collection<MusicItem> findByArtist();
     public Collection<MusicItem> findByGenre();
     public Collection<MusicItem> findByYear();
+    public Collection<MusicItem> findByAlbum();
     public void displayAllMusic();
     public void play();
     public void printInvoice();

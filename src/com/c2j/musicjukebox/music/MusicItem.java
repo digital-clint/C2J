@@ -7,6 +7,7 @@ public class MusicItem {
     private String artist;
     // place holder data for enum
     private Date year;
+    private String album;
     private static final double DEFAULT_PRICE = 0.25;
 
     public MusicItem() {
@@ -48,6 +49,14 @@ public class MusicItem {
         this.year = year;
     }
 
+    public String getAlbum() {
+        return this.album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
     // toString method must be updated after we have enum
     @Override
     public String toString() {
@@ -55,6 +64,7 @@ public class MusicItem {
                 "title='" + title + '\'' +
                 ", artist='" + artist + '\'' +
                 ", year=" + year +
+                ", album='" + album + '\'' +
                 '}';
     }
 }
