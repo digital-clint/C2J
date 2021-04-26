@@ -24,7 +24,18 @@ public class MusicItem implements Comparable<MusicItem> {
         this(title, artist, musicGenre, musicRegions ,Date.valueOf(year), album);
     }
 
+    // Initialize MusicGenre and MusicRegion with received Enum datatype
     public MusicItem(String title, String artist, MusicGenre musicGenre, MusicRegions musicRegions, Date year, String album) {
+        setTitle(title);
+        setArtist(artist);
+        setMusicGenre(musicGenre);
+        setMusicRegions(musicRegions);
+        setYear(year);
+        setAlbum(album);
+    }
+
+    // Initialize MusicGenre and Music Region with received String datatype
+    public MusicItem(String title, String artist, String musicGenre, String musicRegions, String year, String album) {
         setTitle(title);
         setArtist(artist);
         setMusicGenre(musicGenre);
