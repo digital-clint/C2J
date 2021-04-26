@@ -1,6 +1,9 @@
 package com.c2j.musicjukebox.music;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.IllegalFormatException;
 import java.util.Objects;
 
 public class MusicItem implements Comparable<MusicItem> {
@@ -60,6 +63,47 @@ public class MusicItem implements Comparable<MusicItem> {
         this.musicGenre = musicGenre;
     }
 
+    // take input as String just in case
+    // method overloading
+    public void setMusicGenre(String musicGenre)
+            throws IllegalArgumentException{
+        // if the argument pass through is string
+        switch (musicGenre.toLowerCase()) {
+            case "blues":
+                this.musicGenre = MusicGenre.BLUES;
+                break;
+            case "classical":
+                this.musicGenre = MusicGenre.CLASSICAL;
+                break;
+            case "classical_rock":
+            case "classical rock":
+                this.musicGenre = MusicGenre.CLASSIC_ROCK;
+                break;
+            case "country":
+                this.musicGenre = MusicGenre.COUNTRY;
+                break;
+            case "jazz":
+                this.musicGenre = MusicGenre.JAZZ;
+                break;
+            case "pop":
+                this.musicGenre = MusicGenre.POP;
+                break;
+            case "rap":
+                this.musicGenre = MusicGenre.RAP;
+                break;
+            case "rock":
+                this.musicGenre = MusicGenre.ROCK;
+                break;
+            default:
+                this.musicGenre = MusicGenre.NOT_SUPPORTED;
+                throw new IllegalArgumentException("We are sorry, that music genre you typed " +
+                        "is unsupported region in our music junk box." +
+                        "\nWe support BLUES, CLASSICAL, CLASSIC_ROCK, " +
+                        "COUNTRY, JAZZ, POP, RAP, ROCK");
+
+        }
+    }
+
     // return as MusicRegion (Enum)
     public MusicRegions getMusicRegions() {
         return musicRegions;
@@ -70,8 +114,58 @@ public class MusicItem implements Comparable<MusicItem> {
         this.musicRegions = musicRegions;
     }
 
+    // take input as String just in case
+    // method overloading
+    public void setMusicRegions(String musicRegions)
+            throws NullPointerException, IllegalArgumentException {
+        if (musicRegions == null || musicRegions.length() == 0) {
+            throw new NullPointerException("MusicItem=> setMusicRegion(String musicRegions) " +
+                    "parameter require.\nASIA, AFRICA, AUSTRALIA, EUROPE, " +
+                    "\"NORTH_AMERICA, CENTRAL_SOUTH_AMERICA");
+        }
+        // if the argument pass through string is not matching with any regions
+        // throw illegalArgumentException
+        switch (musicRegions.toLowerCase()) {
+            case "asia":
+                this.musicRegions = MusicRegions.ASIA;
+                break;
+            case "africa":
+                this.musicRegions = MusicRegions.AFRICA;
+                break;
+            case "australia":
+                this.musicRegions = MusicRegions.AUSTRALIA;
+                break;
+            case "europe":
+                this.musicRegions = MusicRegions.EUROPE;
+                break;
+            case "north_america":
+            case "north america":
+                this.musicRegions = MusicRegions.NORTH_AMERICA;
+                break;
+            case "central_south_america":
+            case "central south america":
+                this.musicRegions = MusicRegions.CENTRAL_SOUTH_AMERICA;
+                break;
+            default:
+                this.musicRegions = MusicRegions.UNSUPPORTED;
+                throw new IllegalArgumentException("We are sorry, that region you typed " +
+                        "is unsupported region in our music junk box." +
+                        "\nWe support ASIA, AFRICA, AUSTRALIA, EUROPE, " +
+                        "NORTH_AMERICA, CENTRAL_SOUTH_AMERICA");
+        }
+    }
+
     public void setYear(Date year) {
         this.year = year;
+    }
+
+    public void setYear(String year) throws IllegalFormatException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            dateFormat.format(year);
+        } catch (IllegalFormatException e) {
+            System.out.println("MusicItem=> setYear(String year) " + e.getMessage());
+        }
     }
 
     public String getAlbum() {
