@@ -1,8 +1,6 @@
 package com.c2j.musicjukebox.music;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.IllegalFormatException;
 import java.util.Objects;
 
@@ -171,9 +169,9 @@ public class MusicItem implements Comparable<MusicItem> {
     }
 
     public void setYear(String year) throws IllegalFormatException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            dateFormat.format(year);
+            this.year = Date.valueOf(year);
         } catch (IllegalFormatException e) {
             System.out.println("MusicItem=> setYear(String year) " + e.getMessage());
         }

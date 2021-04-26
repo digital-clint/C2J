@@ -7,14 +7,20 @@ import static org.junit.Assert.*;
 
 public class MusicItemTest {
 
+    MusicItem basicMusicItemAllString = null;
     @Before
     public void setUp() {
-        MusicItem basicMusicItemAllString =
-                new MusicItem("SongTitle1", "Artist1", "asia", "pop", "1990-01-03", "album1");
+        basicMusicItemAllString =
+                new MusicItem("SongTitle1", "Artist1",
+                        "pop", "asia",
+                        "1990-01-03", "album1");
     }
 
     @Test
-    public void getTitle() {
+    public void testGetTitleSuccess() {
+        String expectedTitle = "SongTitle1";
+        String actualTitle = basicMusicItemAllString.getTitle();
+        assertEquals(expectedTitle, actualTitle);
     }
 
     @Test
