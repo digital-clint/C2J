@@ -46,7 +46,12 @@ public class MusicItem implements Comparable<MusicItem> {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title) throws IllegalArgumentException {
+        // if the length of the title is zero or null
+        if (this.title.trim().length() == 0 || this.title == null) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setTitle(String title)" +
+                    " the parameter is empty or null");
+        }
         this.title = title;
     }
 
