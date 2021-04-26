@@ -3,6 +3,7 @@ package com.c2j.musicjukebox.user;
 import java.util.Scanner;
 
 public interface JukeboxUserInputUtilities {
+
     public String getInputTitle(String songTitle);
     public String getInputRegion(String region);
     public String getInputArtist(String artistName);
