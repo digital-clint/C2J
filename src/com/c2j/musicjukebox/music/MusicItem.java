@@ -176,6 +176,10 @@ public class MusicItem implements Comparable<MusicItem> {
         this.album = album;
     }
 
+    public static double getDefaultPrice() {
+        return DEFAULT_PRICE;
+    }
+
     // ==========================================
     // =========== Override methods =============
     @Override
