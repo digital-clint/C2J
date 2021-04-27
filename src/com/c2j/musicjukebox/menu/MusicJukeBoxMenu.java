@@ -1,7 +1,11 @@
 package com.c2j.musicjukebox.menu;
 
 import com.c2j.musicjukebox.music.MusicCollection;
+import com.c2j.musicjukebox.music.MusicItem;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class MusicJukeBoxMenu {
@@ -9,6 +13,8 @@ public class MusicJukeBoxMenu {
     private String userInput;
     private int userNumChoice;
     private MusicCollection jukeboxConsole = MusicCollection.createInstance();
+    String regionName;
+
 
 
 
@@ -86,8 +92,7 @@ public class MusicJukeBoxMenu {
         }
     }
 
-    //Created shell for methods below.
-    //Will Add logic later
+
     public void viewAllSongs(){
         System.out.println("case 1");
     }
@@ -123,27 +128,33 @@ public class MusicJukeBoxMenu {
 
         switch (userNumChoice){
             case 1:
-                jukeboxConsole.findByRegion("Asia");
+                regionName = "Asia";
+                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
                 break;
 
             case 2:
-                jukeboxConsole.findByRegion("Africa");
+                regionName = "Africa";
+                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
                 break;
 
             case 3:
-                jukeboxConsole.findByRegion("Australia");
+                regionName = "Australia";
+                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
                 break;
 
             case 4:
-                jukeboxConsole.findByRegion("Europe");
+                regionName = "Europe";
+                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
                 break;
 
             case 5:
-                jukeboxConsole.findByRegion("North America");
+                regionName = "North America";
+                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
                 break;
 
             case 6:
-                jukeboxConsole.findByRegion("Central South America");
+                regionName = "Central South America";
+                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
                 break;
 
             default:
@@ -151,6 +162,58 @@ public class MusicJukeBoxMenu {
                 System.out.println();
                 pickSongFromRegion();
         }
+    }
+
+    public MusicItem songRetrievedFromRegion(String regionStringName){
+        Collection<MusicItem> songsFoundInRegion;
+        ArrayList<MusicItem> listOfSongs = new ArrayList<>();
+        songsFoundInRegion = jukeboxConsole.findByRegion(regionStringName);
+
+        for (MusicItem song: songsFoundInRegion) {
+            listOfSongs.add(song);
+        }
+
+        //Song retrieved is a single music item
+        MusicItem songRetrieved = chooseASong(listOfSongs);
+        return songRetrieved;
+    }
+
+    public MusicItem chooseASong(ArrayList songs){
+        MusicItem songChosen = new MusicItem();
+        int count = 1;
+        System.out.println("What song would you like to choose?");
+        System.out.println();
+        for (Object song : songs) {
+            System.out.println(count + ") " + song );
+            count++;
+        }
+
+        System.out.print("Please enter the number of your selection: ");
+        userInput = scan.nextLine();
+        System.out.println("-------------------------------------------");
+
+        try {
+            userNumChoice = Integer.parseInt(userInput);
+            if(userNumChoice != (int)userNumChoice){
+                throw new NumberFormatException();
+            }
+        }
+        catch(NumberFormatException e) {
+            System.out.println("Please enter a valid number!");
+            System.out.println();
+            chooseASong(songs);
+        }
+        int userFinalChoice = userNumChoice - 1;
+        if(userFinalChoice < 0 || userFinalChoice > songs.size()){
+            System.out.println("Please enter a valid number!");
+            System.out.println();
+            chooseASong(songs);
+        } else {
+            songChosen = (MusicItem) songs.get(userFinalChoice);
+
+        }
+
+        return songChosen;
     }
 
 
