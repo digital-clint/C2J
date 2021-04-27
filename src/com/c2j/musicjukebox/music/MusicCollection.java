@@ -313,16 +313,12 @@ public class MusicCollection implements MusicUtilities {
                 .sorted()
                 .collect(Collectors.toList());
 
-        // if cannot find anything that 
+        // if cannot find anything that
         if (foundSongs == null || foundSongs.size() == 0) {
-
+            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear) " +
+                    " you must put target targetYear as input.");
         }
         return foundSongs;
-    }
-
-    @Override
-    public Collection<MusicItem> findByYear(Date targetYear) throws IllegalArgumentException {
-        return null;
     }
 
     @Override
@@ -336,14 +332,18 @@ public class MusicCollection implements MusicUtilities {
                 .filter(item -> item.getAlbum().equalsIgnoreCase(targetAlbum))
                 .collect(Collectors.toList());
 
-        // base logic for if there are no exact matching song
+        // base logic for if there are no exact matching song find something similar to the user
         if (foundSongs == null || foundSongs.size() == 0) {
-            foundSongs = musicItemCollections.stream()
-                    .filter(item -> item.getAlbum().toLowerCase().contains(targetAlbum.toLowerCase()))
-                    .filter(item -> item.getAlbum().toUpperCase().contains(targetAlbum.toUpperCase()))
-                    .collect(Collectors.toList());
+            for (int i = 0; i < targetAlbum.length(); i++) {
+                String firstCharactertargetAlbum = targetAlbum.substring(0, targetAlbum.length() - i);
+                foundSongs = musicItemCollections.stream()
+                        .filter(item -> item.getAlbum().toLowerCase().startsWith(firstCharactertargetAlbum.toLowerCase()))
+                        .filter(item -> item.getAlbum().toUpperCase().startsWith(firstCharactertargetAlbum.toUpperCase()))
+                        .sorted()
+                        .collect(Collectors.toList());
+            }
         }
-
+        
         if (foundSongs == null || foundSongs.size() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>findByAlbum(String targetAlbum)" +
                     " we cannot find any matching song or contains any character you had inserted in");
