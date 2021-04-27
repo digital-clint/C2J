@@ -48,7 +48,7 @@ public class MusicItem implements Comparable<MusicItem> {
 
     public void setTitle(String title) throws IllegalArgumentException {
         // if the length of the title is zero or null
-        if (this.title.trim().length() == 0 || this.title == null) {
+        if (title.trim().length() == 0 || title == null) {
             throw new IllegalArgumentException("IllegalArgumentException=>setTitle(String title)" +
                     " the parameter is empty or null");
         }
@@ -59,7 +59,12 @@ public class MusicItem implements Comparable<MusicItem> {
         return artist;
     }
 
-    public void setArtist(String artist) {
+    public void setArtist(String artist) throws IllegalArgumentException {
+        // if the length of the artist is zero or null
+        if (artist.trim().length() == 0 || artist == null) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setArtist(String artist)" +
+                    " the parameter is empty or null");
+        }
         this.artist = artist;
     }
 
@@ -173,8 +178,11 @@ public class MusicItem implements Comparable<MusicItem> {
         this.year = year;
     }
 
-    public void setYear(String year) throws IllegalFormatException {
-        // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public void setYear(String year) throws IllegalArgumentException {
+        if (year.trim().length() == 0 || year == null) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setYear(String year)"+
+                    " the parameter is empty or null");
+        }
         try {
             this.year = Date.valueOf(year);
         } catch (IllegalFormatException e) {
@@ -186,7 +194,11 @@ public class MusicItem implements Comparable<MusicItem> {
         return this.album;
     }
 
-    public void setAlbum(String album) {
+    public void setAlbum(String album) throws IllegalArgumentException {
+        if (album.trim().length() == 0 || album == null) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setAlbum(String album)"+
+                    " the parameter is empty or null");
+        }
         this.album = album;
     }
 
