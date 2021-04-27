@@ -338,6 +338,18 @@ public class MusicItemTest {
     }
 
     @Test
+    public void testNotEquals() {
+        // compare actual object
+        MusicItem musicItem1 = new MusicItem("SongTitle1", "Artist1",
+                "pop", "asia",
+                "1990-01-03", "album1");
+        MusicItem musicItem2 = new MusicItem("SongTitle1", "Artist1",
+                MusicGenre.BLUES, "asia",
+                "1990-01-03", "album1");
+        assertNotEquals(musicItem1, musicItem2);
+    }
+
+    @Test
     public void testDifferentMemoryAddress() {
         // compare actual object
         MusicItem musicItem1 = new MusicItem("SongTitle1", "Artist1",
