@@ -16,7 +16,7 @@ public class MusicItemTest {
         basicMusicItemAllString =
                 new MusicItem("SongTitle1", "Artist1",
                         "pop", "asia",
-                        "1990-01-03", "album1");
+                        "1990", "album1");
     }
 
     // ============ Title ============
@@ -103,8 +103,8 @@ public class MusicItemTest {
     // =========== Year =============
     @Test
     public void testGetYearSuccess() {
-        Date expectedDate = Date.valueOf("1990-01-03");
-        Date actualDate = basicMusicItemAllString.getYear();
+        String expectedDate = "1990";
+        String actualDate = basicMusicItemAllString.getYear();
         assertEquals(expectedDate, actualDate);
     }
 
@@ -113,9 +113,9 @@ public class MusicItemTest {
         MusicItem musicSetYearString = null;
         musicSetYearString = new MusicItem("SongTitle1", "Artist1",
                 "pop", "asia",
-                "1990-01-03", "album1");
-        Date actualDate = musicSetYearString.getYear();
-        assertEquals(Date.valueOf("1990-01-03"), actualDate);
+                "1990", "album1");
+        String actualDate = musicSetYearString.getYear();
+        assertEquals("1990", actualDate);
     }
 
     @Test
@@ -166,7 +166,7 @@ public class MusicItemTest {
         MusicItem musicSetMusicGenrerString = null;
         musicSetMusicGenrerString = new MusicItem("SongTitle1", "Artist1",
                 "blues", "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         MusicGenre expectedGenre = MusicGenre.BLUES;
         MusicGenre actualGenre = musicSetMusicGenrerString.getMusicGenre();
         assertEquals(expectedGenre, actualGenre);
@@ -177,7 +177,7 @@ public class MusicItemTest {
         MusicItem musicSetMusicGenrerEnum = null;
         musicSetMusicGenrerEnum = new MusicItem("SongTitle1", "Artist1",
                 MusicGenre.BLUES, "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         MusicGenre expectedGenre = MusicGenre.BLUES;
         MusicGenre actualGenre = musicSetMusicGenrerEnum.getMusicGenre();
         assertEquals(expectedGenre, actualGenre);
@@ -233,7 +233,7 @@ public class MusicItemTest {
         MusicItem musicSetMusicRegionString = null;
         musicSetMusicRegionString = new MusicItem("SongTitle1", "Artist1",
                 "classical rock", "North america",
-                "1990-01-03", "album1");
+                "1990", "album1");
         MusicRegions expectedRegion = MusicRegions.NORTH_AMERICA;
         MusicRegions actualRegion = musicSetMusicRegionString.getMusicRegions();
         assertEquals(expectedRegion, actualRegion);
@@ -244,7 +244,7 @@ public class MusicItemTest {
         MusicItem musicSetMusicRegionEnum = null;
         musicSetMusicRegionEnum = new MusicItem("SongTitle1", "Artist1",
                 "blues", MusicRegions.AUSTRALIA,
-                "1990-01-03", "album1");
+                "1990", "album1");
         MusicRegions expectedRegion = MusicRegions.AUSTRALIA;
         MusicRegions actualRegion = musicSetMusicRegionEnum.getMusicRegions();
         assertEquals(expectedRegion, actualRegion);
@@ -261,7 +261,7 @@ public class MusicItemTest {
             // notice that musicGenre is something else
             musicRandomRegion = new MusicItem("SongTitle1", "Artist1",
                     "rock", "asdfasdf",
-                    "1990-01-03", "album1");
+                    "1990", "album1");
             fail("This should never print it out");
             System.out.println(musicRandomRegion);
         } catch (IllegalArgumentException iae) {
@@ -279,7 +279,7 @@ public class MusicItemTest {
             // notice that musicGenre is something else
             musicEmptyRegion = new MusicItem("SongTitle1", "Artist1",
                     "rap", "",
-                    "1990-01-03", "album1");
+                    "1990", "album1");
             fail("This should never print it out");
             System.out.println(musicEmptyRegion);
         } catch (IllegalArgumentException iae) {
@@ -302,7 +302,7 @@ public class MusicItemTest {
         MusicItem musicItemNullAlbum = null;
         musicItemNullAlbum = new MusicItem("SongTitle1", "artist1",
                 "pop", "asia",
-                "1990-01-03", null);
+                "1990", null);
         fail("This should never print it out");
         System.out.println(musicItemNullAlbum);
     }
@@ -313,7 +313,7 @@ public class MusicItemTest {
         MusicItem musicItemNullAlbum = null;
         musicItemNullAlbum = new MusicItem("SongTitle1", "artist1",
                 "pop", "asia",
-                "1990-01-03", "");
+                "1990", "");
         fail("This should never print it out");
         System.out.println(musicItemNullAlbum);
     }
@@ -330,10 +330,10 @@ public class MusicItemTest {
         // compare actual object
         MusicItem musicItem1 = new MusicItem("SongTitle1", "Artist1",
                 "pop", "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         MusicItem musicItem2 = new MusicItem("SongTitle1", "Artist1",
                 "pop", "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         assertEquals(musicItem1, musicItem2);
     }
 
@@ -342,10 +342,10 @@ public class MusicItemTest {
         // compare actual object
         MusicItem musicItem1 = new MusicItem("SongTitle1", "Artist1",
                 "pop", "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         MusicItem musicItem2 = new MusicItem("SongTitle1", "Artist1",
                 MusicGenre.BLUES, "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         assertNotEquals(musicItem1, musicItem2);
     }
 
@@ -354,10 +354,10 @@ public class MusicItemTest {
         // compare actual object
         MusicItem musicItem1 = new MusicItem("SongTitle1", "Artist1",
                 "pop", "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         MusicItem musicItem2 = new MusicItem("SongTitle1", "Artist1",
                 "pop", "asia",
-                "1990-01-03", "album1");
+                "1990", "album1");
         assertNotSame(musicItem1, musicItem2);
     }
 }

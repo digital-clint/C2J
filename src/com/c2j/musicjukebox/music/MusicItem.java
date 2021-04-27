@@ -1,6 +1,8 @@
 package com.c2j.musicjukebox.music;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.IllegalFormatException;
 import java.util.Objects;
 
@@ -9,7 +11,7 @@ public class MusicItem implements Comparable<MusicItem> {
     private String artist;
     private MusicGenre musicGenre;
     private MusicRegions musicRegions;
-    private Date year;
+    private String year;
     private String album;
     private static final double DEFAULT_PRICE = 0.25;
 
@@ -17,13 +19,8 @@ public class MusicItem implements Comparable<MusicItem> {
 
     }
 
-    // Method overloading (String for year)
-    public MusicItem(String title, String artist, MusicGenre musicGenre, MusicRegions musicRegions ,String year, String album) {
-        this(title, artist, musicGenre, musicRegions ,Date.valueOf(year), album);
-    }
-
     // Initialize MusicGenre and MusicRegion with received Enum datatype
-    public MusicItem(String title, String artist, MusicGenre musicGenre, MusicRegions musicRegions, Date year, String album) {
+    public MusicItem(String title, String artist, MusicGenre musicGenre, MusicRegions musicRegions, String year, String album) {
         setTitle(title);
         setArtist(artist);
         setMusicGenre(musicGenre);
@@ -91,7 +88,7 @@ public class MusicItem implements Comparable<MusicItem> {
         this.artist = artist;
     }
 
-    public Date getYear() {
+    public String getYear() {
         return year;
     }
 
@@ -200,20 +197,25 @@ public class MusicItem implements Comparable<MusicItem> {
         }
     }
 
-    public void setYear(Date year) {
-        this.year = year;
-    }
-
     public void setYear(String year) throws IllegalArgumentException {
+        // input year should not be null or 0
         if (year == null || year.trim().length() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>setYear(String year)"+
                     " the parameter is empty or null");
         }
-        try {
-            this.year = Date.valueOf(year);
-        } catch (IllegalFormatException e) {
-            System.out.println("MusicItem=> setYear(String year) " + e.getMessage());
+        if (year.trim().length() != 4) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setYear(String year)"+
+                    " the parameter should be four length long");
         }
+
+        // get current year to check if user input makes sense
+        int currentYearInInteger = Calendar.getInstance().get(Calendar.YEAR);
+        int yearInputInInteger = Integer.parseInt(year);
+        if (yearInputInInteger > currentYearInInteger) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setYear(String year)" +
+                    " the parameter is empty or null");
+        }
+        this.year = year;
     }
 
     public String getAlbum() {
