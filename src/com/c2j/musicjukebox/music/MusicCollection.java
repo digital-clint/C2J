@@ -290,7 +290,34 @@ public class MusicCollection implements MusicUtilities {
 
     @Override
     public Collection<MusicItem> findByYear(String targetYear) throws IllegalArgumentException {
-        return null;
+        if (targetYear == null || targetYear.length() == 0) {
+            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear" +
+                    " you must put target year as input.");
+        }
+
+        // check if user year input is length of 4
+        if (targetYear.trim().length() > 4) {
+            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear" +
+                    " you must put year\nFor example: 2021.");
+        }
+        int currentYearInteger = Calendar.getInstance().get(Calendar.YEAR);
+        int userInputYearInteger = Integer.parseInt(targetYear);
+        // check if user year input is not bigger than current year
+        if (userInputYearInteger > currentYearInteger) {
+            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYea" +
+                    " you must put target year that is not in future as input.");
+        }
+        Collection<MusicItem> foundSongs = null;
+        foundSongs = musicItemCollections.stream()
+                .filter(item -> item.getYear().equals(targetYear))
+                .sorted()
+                .collect(Collectors.toList());
+
+        // if cannot find anything that 
+        if (foundSongs == null || foundSongs.size() == 0) {
+
+        }
+        return foundSongs;
     }
 
     @Override
