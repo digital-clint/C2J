@@ -13,20 +13,79 @@ public class MusicCollection implements MusicUtilities {
     // I will just put some random data for now (Dummy data)
     private static Collection<MusicItem> musicItemCollections = new ArrayList<>();
     static {
-        musicItemCollections.add(new MusicItem("Shape of You", "Ed Sheeran",
-                MusicGenre.POP, MusicRegions.NORTH_AMERICA, "2017-01-04", "Album1"));
-        musicItemCollections.add(new MusicItem("See You Again", "Wiz Khalifa, Charlie Puth",
-                MusicGenre.RAP, MusicRegions.NORTH_AMERICA, "2015-01-24", "Album2"));
-        musicItemCollections.add(new MusicItem("Dynamite", "BTS",
-                MusicGenre.POP, MusicRegions.ASIA, "2020-10-03", "Album10"));
-        musicItemCollections.add(new MusicItem("Zombie", "The Cranberries",
-                MusicGenre.ROCK, MusicRegions.EUROPE, "2021-02-15", "Album5"));
-        musicItemCollections.add(new MusicItem("Rollin", "Brave Girls",
-                MusicGenre.POP, MusicRegions.ASIA, "2017-05-24", "Album55"));
-        musicItemCollections.add(new MusicItem("Rosllin", "Brave Girls",
-                MusicGenre.POP, MusicRegions.ASIA, "2017-05-24", "Album55"));
-        musicItemCollections.add(new MusicItem("Asllin", "Brave Girls",
-                MusicGenre.POP, MusicRegions.ASIA, "2017-05-24", "Album55"));
+        musicItemCollections.add(new MusicItem("Goyard", "Keith Ape",
+                MusicGenre.RAP, MusicRegions.ASIA, "2015", "MixtAPE #1"));
+        musicItemCollections.add(new MusicItem("Main Ka Karoon Ram", "Lata Mangeshkar",
+                MusicGenre.CLASSICAL, MusicRegions.ASIA, "1995", "In A Different Mood"));
+        musicItemCollections.add(new MusicItem("Silent Jealousy", "X Japan",
+                MusicGenre.ROCK, MusicRegions.ASIA, "2002", "Trance X"));
+        musicItemCollections.add(new MusicItem("Acoustic Chicken", "Furusawa Ryojiro Quartet",
+                MusicGenre.BLUES, MusicRegions.ASIA, "1976", "ou Wanna Rain"));
+        musicItemCollections.add(new MusicItem("WISDOMINANT", "TRI4TH",
+                MusicGenre.JAZZ, MusicRegions.ASIA, "2010", "Tri4th"));
+        musicItemCollections.add(new MusicItem("Boom Boom Boys", "Kumi Koda",
+                MusicGenre.POP, MusicRegions.ASIA, "2012", "Japonesque"));
+        musicItemCollections.add(new MusicItem("Leave Me Alone", "Amaarae",
+                MusicGenre.RAP, MusicRegions.AFRICA, "2020", "The Angel You Don't Know"));
+        musicItemCollections.add(new MusicItem("Willow Song", "Miriam Makeba",
+                MusicGenre.CLASSICAL, MusicRegions.AFRICA, "1964", "The Voice Of Africa"));
+        musicItemCollections.add(new MusicItem("Marathon Dance", "Allez Allez",
+                MusicGenre.ROCK, MusicRegions.AFRICA, "1981", "African Queen"));
+        musicItemCollections.add(new MusicItem("Bakoytereye", "Ali Farka Touré",
+                MusicGenre.BLUES, MusicRegions.AFRICA, "1987", "Ali Farka Touré"));
+        musicItemCollections.add(new MusicItem("He's Gone Away", "Hugh Masekela",
+                MusicGenre.JAZZ, MusicRegions.AFRICA, "1962", "Trumpet Africaine"));
+        musicItemCollections.add(new MusicItem("Ladysmith Black Mambazo", "Nomathemba",
+                MusicGenre.POP, MusicRegions.AFRICA, "1973", "Amabutho"));
+        musicItemCollections.add(new MusicItem("Black Widow", "Iggy Azalea",
+                MusicGenre.RAP, MusicRegions.AUSTRALIA, "2014", "Reclassified"));
+        musicItemCollections.add(new MusicItem("Sonatina", "Ross Edwards",
+                MusicGenre.CLASSICAL, MusicRegions.AUSTRALIA, "1972", "His Master's Voice"));
+        musicItemCollections.add(new MusicItem("Why Won't They Talk To Me?", "Tame Impala",
+                MusicGenre.ROCK, MusicRegions.AUSTRALIA, "2012", "Lonerism"));
+        musicItemCollections.add(new MusicItem("Pain And Misery", "The Teskey Brothers",
+                MusicGenre.BLUES, MusicRegions.AUSTRALIA, "2017", "Half Mile Harvest"));
+        musicItemCollections.add(new MusicItem("Too Marvellous For Words", "Katie Noonan",
+                MusicGenre.JAZZ, MusicRegions.AUSTRALIA, "2004", "Two Of A Kind"));
+        musicItemCollections.add(new MusicItem("Never Coming Back", "Amy Shark",
+                MusicGenre.POP, MusicRegions.AUSTRALIA, "2018", "Love Monster"));
+        musicItemCollections.add(new MusicItem("Hammer Em Down", "Blade Brown",
+                MusicGenre.RAP, MusicRegions.EUROPE, "2010", "Bags And Boxes"));
+        musicItemCollections.add(new MusicItem("Straighten Up And Fly Right", "Voces8",
+                MusicGenre.CLASSICAL, MusicRegions.EUROPE, "2008", "Evensong"));
+        musicItemCollections.add(new MusicItem("Sparks", "Coldplay",
+                MusicGenre.ROCK, MusicRegions.EUROPE, "2000", "Parachutes"));
+        musicItemCollections.add(new MusicItem("Been Here Before", "Christone “Kingfish” Ingram",
+                MusicGenre.BLUES, MusicRegions.EUROPE, "2019", "Kingfish"));
+        musicItemCollections.add(new MusicItem("Not That Kind Of Girl", "Mindi Abair & the Boneshakers",
+                MusicGenre.JAZZ, MusicRegions.EUROPE, "2019", "The Eastwest Sessions"));
+        musicItemCollections.add(new MusicItem("Aural Exam", "Anna Abreu",
+                MusicGenre.POP, MusicRegions.EUROPE, "2009", "Just A Pretty Face"));
+        musicItemCollections.add(new MusicItem("Hammer Em Down", "Blade Brown",
+                MusicGenre.RAP, MusicRegions.NORTH_AMERICA, "2010", "Bags And Boxes"));
+        musicItemCollections.add(new MusicItem("Night Of The Living Junkies", "Kendrick Lamar",
+                MusicGenre.CLASSICAL, MusicRegions.NORTH_AMERICA, "2010", "Overly Dedicated"));
+        musicItemCollections.add(new MusicItem("The Pieces That Fall To Earth", "Christopher Cerrone",
+                MusicGenre.ROCK, MusicRegions.NORTH_AMERICA, "2019", "The Pieces That Fall To Earth"));
+        musicItemCollections.add(new MusicItem("Holding On To You", "twenty one pilots",
+                MusicGenre.BLUES, MusicRegions.NORTH_AMERICA, "2011", "Regional At Best"));
+        musicItemCollections.add(new MusicItem("I Heard It Through The Grapevine", "Bettye LaVette",
+                MusicGenre.JAZZ, MusicRegions.NORTH_AMERICA, "1982", "Tell Me A Lie"));
+        musicItemCollections.add(new MusicItem("Song Of Her", "Charles Lloyd",
+                MusicGenre.POP, MusicRegions.NORTH_AMERICA, "1967", "Forest Flower"));
+        musicItemCollections.add(new MusicItem("Don't Start Now", "Dua Lipa",
+                MusicGenre.POP, MusicRegions.CENTRAL_SOUTH_AMERICA, "2020", "Future Nostalgia"));
+        musicItemCollections.add(new MusicItem("Perra Del Futuro", "Tomasa Del Real",
+                MusicGenre.RAP, MusicRegions.CENTRAL_SOUTH_AMERICA, "2018", "Bellaca Del Año"));
+        musicItemCollections.add(new MusicItem("Prelude In E Flat Minor Op. 16 No. 4", "Gabriela Montero",
+                MusicGenre.CLASSICAL, MusicRegions.CENTRAL_SOUTH_AMERICA, "2005", "Piano Recital"));
+        musicItemCollections.add(new MusicItem("Big Baby Blues", "Ritchie Valens",
+                MusicGenre.ROCK, MusicRegions.CENTRAL_SOUTH_AMERICA, "1959", "Ritchie"));
+        musicItemCollections.add(new MusicItem("You Got It Diz", "David Sanchez",
+                MusicGenre.BLUES, MusicRegions.CENTRAL_SOUTH_AMERICA, "1994", "The Departure"));
+        musicItemCollections.add(new MusicItem("Lejos De Tu Amor", "Shakira",
+                MusicGenre.POP, MusicRegions.CENTRAL_SOUTH_AMERICA, "1991", "Magia"));
+
     }
 
     private static Queue<MusicItem> playlist = null;
