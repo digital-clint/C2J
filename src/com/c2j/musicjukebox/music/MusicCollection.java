@@ -94,13 +94,12 @@ public class MusicCollection implements MusicUtilities {
     private static double totalMoneyEarned;
 
 
-    // Temp Constructor
+    // private constructor
     private MusicCollection() {
-        // I do not think I needed it
     }
 
     public static MusicCollection createInstance() {
-        if (musicCollection != null) {
+        if (musicCollection == null) {
             musicCollection = new MusicCollection();
         }
         return musicCollection;
@@ -113,6 +112,7 @@ public class MusicCollection implements MusicUtilities {
 
     @Override
     public Collection<MusicItem> findByTitle(String targetTitle) throws IllegalArgumentException {
+        System.out.println("Got in here");
         if (targetTitle == null || targetTitle.length() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>findByTitle(String targetTitle)" +
                     " you must put target title as input.");
