@@ -42,13 +42,36 @@ public class MusicItem implements Comparable<MusicItem> {
         setAlbum(album);
     }
 
+    // overloading
+    // Enum musicGenre, String musicRegion
+    public MusicItem(String title, String artist, MusicGenre musicGenre, String musicRegions, String year, String album) {
+        setTitle(title);
+        setArtist(artist);
+        setMusicGenre(musicGenre);
+        setMusicRegions(musicRegions);
+        setYear(year);
+        setAlbum(album);
+    }
+
+    // overloading
+    // String musicGenre, Enum musicRegion
+    public MusicItem(String title, String artist, String musicGenre, MusicRegions musicRegions, String year, String album) {
+        setTitle(title);
+        setArtist(artist);
+        setMusicGenre(musicGenre);
+        setMusicRegions(musicRegions);
+        setYear(year);
+        setAlbum(album);
+    }
+
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) throws IllegalArgumentException {
         // if the length of the title is zero or null
-        if (title.trim().length() == 0 || title == null) {
+        if (title == null || title.trim().length() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>setTitle(String title)" +
                     " the parameter is empty or null");
         }
@@ -61,7 +84,7 @@ public class MusicItem implements Comparable<MusicItem> {
 
     public void setArtist(String artist) throws IllegalArgumentException {
         // if the length of the artist is zero or null
-        if (artist.trim().length() == 0 || artist == null) {
+        if (artist == null || artist.trim().length() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>setArtist(String artist)" +
                     " the parameter is empty or null");
         }
@@ -86,6 +109,10 @@ public class MusicItem implements Comparable<MusicItem> {
     // method overloading
     public void setMusicGenre(String musicGenre)
             throws IllegalArgumentException{
+        if (musicGenre == null || musicGenre.trim().length() == 0) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setMusicGenre(String musicGenre)" +
+                    " the parameter is empty or null");
+        }
         // if the argument pass through is string
         switch (musicGenre.toLowerCase()) {
             case "blues":
@@ -135,12 +162,11 @@ public class MusicItem implements Comparable<MusicItem> {
 
     // take input as String just in case
     // method overloading
-    public void setMusicRegions(String musicRegions)
-            throws NullPointerException, IllegalArgumentException {
-        if (musicRegions == null || musicRegions.length() == 0) {
-            throw new NullPointerException("MusicItem=> setMusicRegion(String musicRegions) " +
+    public void setMusicRegions(String musicRegions) throws IllegalArgumentException {
+        if (musicRegions == null || musicRegions.trim().length() == 0) {
+            throw new IllegalArgumentException("IllegalArgumentException=>setMusicRegion(String musicRegions) " +
                     "parameter require.\nASIA, AFRICA, AUSTRALIA, EUROPE, " +
-                    "\"NORTH_AMERICA, CENTRAL_SOUTH_AMERICA");
+                    "NORTH_AMERICA, CENTRAL_SOUTH_AMERICA");
         }
         // if the argument pass through string is not matching with any regions
         // throw illegalArgumentException
@@ -179,7 +205,7 @@ public class MusicItem implements Comparable<MusicItem> {
     }
 
     public void setYear(String year) throws IllegalArgumentException {
-        if (year.trim().length() == 0 || year == null) {
+        if (year == null || year.trim().length() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>setYear(String year)"+
                     " the parameter is empty or null");
         }
@@ -195,7 +221,7 @@ public class MusicItem implements Comparable<MusicItem> {
     }
 
     public void setAlbum(String album) throws IllegalArgumentException {
-        if (album.trim().length() == 0 || album == null) {
+        if (album == null || album.trim().length() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>setAlbum(String album)"+
                     " the parameter is empty or null");
         }
