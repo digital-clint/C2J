@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 public interface MusicUtilities {
-    public Collection<MusicItem> findByTitle(String targetTitle);
+    public Collection<MusicItem> findByTitle(String targetTitle) throws IllegalArgumentException;
     // method overloading param is String
     public Collection<MusicItem> findByRegion(String targetByRegion);
     // method overloading param is Enum
@@ -18,7 +18,7 @@ public interface MusicUtilities {
     public Collection<MusicItem> findByYear(String targetYear);
     // method overloading param is Date
     public Collection<MusicItem> findByYear(Date targetYear);
-    public Collection<MusicItem> findByAlbum(String targetAlbum);
+    public Collection<MusicItem> findByAlbum(String targetAlbum) throws IllegalArgumentException;
     public void displayAllMusic();
     public void play();
     public void printInvoice();
