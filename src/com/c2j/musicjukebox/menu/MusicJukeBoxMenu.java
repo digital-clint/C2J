@@ -1,17 +1,21 @@
 package com.c2j.musicjukebox.menu;
 
+import com.c2j.musicjukebox.music.MusicCollection;
+
 import java.util.Scanner;
 
 public class MusicJukeBoxMenu {
     private Scanner scan = new Scanner(System.in);
     private String userInput;
     private int userNumChoice;
+    private MusicCollection jukeboxConsole = MusicCollection.createInstance();
+
+
 
     //This method will start the Jukebox
     public void start(){
         welcome();
         displayJukeboxOptions();
-
     };
 
     public void welcome(){
@@ -93,11 +97,67 @@ public class MusicJukeBoxMenu {
     }
 
     public void pickSongFromRegion(){
-        System.out.println("case 3");
+        System.out.println("What region would you like to pick a song from?");
+        System.out.println();
+        System.out.println("1) Asia");
+        System.out.println("2) Africa");
+        System.out.println("3) Australia");
+        System.out.println("4) Europe");
+        System.out.println("5) North America");
+        System.out.println("6) Central/South America");
+        System.out.print("Please enter the number of your selection: ");
+        userInput = scan.nextLine();
+        System.out.println("-------------------------------------------");
+
+        try {
+            userNumChoice = Integer.parseInt(userInput);
+            if(userNumChoice != (int)userNumChoice){
+                throw new NumberFormatException();
+            }
+        }
+        catch(NumberFormatException e) {
+            System.out.println("Please enter a valid number!");
+            System.out.println();
+            pickSongFromRegion();
+        }
+
+        switch (userNumChoice){
+            case 1:
+                jukeboxConsole.findByRegion("Asia");
+                break;
+
+            case 2:
+                jukeboxConsole.findByRegion("Africa");
+                break;
+
+            case 3:
+                jukeboxConsole.findByRegion("Australia");
+                break;
+
+            case 4:
+                jukeboxConsole.findByRegion("Europe");
+                break;
+
+            case 5:
+                jukeboxConsole.findByRegion("North America");
+                break;
+
+            case 6:
+                jukeboxConsole.findByRegion("Central South America");
+                break;
+
+            default:
+                System.out.println("Invalid Selection..Please try again");
+                System.out.println();
+                pickSongFromRegion();
+        }
     }
 
+
     public void findSongByTitle(){
-        System.out.println("case 4");
+        System.out.println("Please enter the name of the song you are looking for?: ");
+        userInput = scan.nextLine();
+        jukeboxConsole.findByTitle(userInput);
     }
 
     public void findSongByReleaseYear(){
