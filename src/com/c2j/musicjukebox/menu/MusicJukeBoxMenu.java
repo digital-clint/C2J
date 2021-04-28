@@ -13,7 +13,8 @@ public class MusicJukeBoxMenu {
     private int userNumChoice;
     private MusicCollection jukeboxConsole = MusicCollection.createInstance();
     private String regionName;
-    boolean onlyViewedSongListing;
+    boolean onlyViewedSongListing = false;
+    boolean adminLogin;
 
 
 
@@ -23,6 +24,8 @@ public class MusicJukeBoxMenu {
         displayJukeboxOptions();
         if (onlyViewedSongListing == true){
             noChoiceRunAgain();
+        } else if(adminLogin == true){
+            adminLogout();
         } else {
             runAgain();
         }
@@ -67,7 +70,7 @@ public class MusicJukeBoxMenu {
         } else if (userInput.toLowerCase().equals("n") || userInput.toLowerCase().equals("no")){
             System.out.println("-----------------------------------------");
             System.out.println("Thanks for using the C2J Jukebox!");
-            System.out.println("In the future we hope to add the song you'd like to play...");
+            System.out.println("In the future we hope to add more songs you'd like to play...");
             System.out.println("♪ ♪ ♫ ♪ ♪ ♫");
         }
         else {
@@ -78,13 +81,21 @@ public class MusicJukeBoxMenu {
     }
 
     public void displayJukeboxOptions(){
+        int count = 0;
         System.out.println("1) View all songs in Jukebox");
+        count++;
         System.out.println("2) Pick a song from from a certain genre");
+        count++;
         System.out.println("3) Pick a song from a certain region");
+        count++;
         System.out.println("4) Find a song by title");
+        count++;
         System.out.println("5) Find a song by release year");
+        count++;
         System.out.println("6) Find a song by album name");
+        count++;
         System.out.println("7) Login as administrator");
+        count++;
         System.out.println();
         System.out.print("Please enter the number of your selection: ");
         userInput = scan.nextLine();
@@ -92,7 +103,7 @@ public class MusicJukeBoxMenu {
 
         try {
             userNumChoice = Integer.parseInt(userInput);
-            if(userNumChoice != (int)userNumChoice){
+            if(userNumChoice != (int)userNumChoice || userNumChoice > count || userNumChoice < 1 ){
                 throw new NumberFormatException();
             }
         }
@@ -141,14 +152,68 @@ public class MusicJukeBoxMenu {
 
     //View listing of all Songs
     public void viewAllSongs(){
-        Collection<MusicItem> allSongs = MusicCollection.getAllMusic();
-        System.out.println("Displaying all songs in Jukebox.......");
-        System.out.println("-------------------------------------------");
-        for (MusicItem song : allSongs) {
-            System.out.println(song);
-        }
+        int count = 0;
+        System.out.println("Please choose an option below...");
+        System.out.println();
+        System.out.println("1) View all songs sorted by region");
+        count++;
+        System.out.println("2) View all songs sorted by genre");
+        count++;
+        System.out.println("3) View all songs sorted by artist");
+        count++;
+        System.out.println("4) View all songs sorted by year");
+        count++;
+        System.out.println("5) View all songs sorted by title");
+        count++;
+
+        System.out.println();
+        System.out.print("Please enter the number of your selection: ");
+        userInput = scan.nextLine();
         System.out.println("-------------------------------------------");
 
+        try {
+            userNumChoice = Integer.parseInt(userInput);
+            if(userNumChoice != (int)userNumChoice || userNumChoice > count || userNumChoice < 1 ){
+                throw new NumberFormatException();
+            }
+        }
+        catch(NumberFormatException e) {
+            System.out.println("Please enter a valid number!");
+            System.out.println();
+            viewAllSongs();
+        }
+
+        songsSortedByOptions(userNumChoice);
+
+
+    }
+
+    public void songsSortedByOptions(int sortNumChoice){
+        switch (sortNumChoice) {
+            case 1:
+                jukeboxConsole.displayAllMusic("region");
+                break;
+
+            case 2:
+                jukeboxConsole.displayAllMusic("genre");
+                break;
+
+            case 3:
+                jukeboxConsole.displayAllMusic("artist");
+                break;
+
+            case 4:
+                jukeboxConsole.displayAllMusic("year");
+                break;
+
+            case 5:
+                jukeboxConsole.displayAllMusic("title");
+                break;
+
+            default:
+                viewAllSongs();
+
+        }
     }
 
     public void pickSongFromGenre(){
@@ -169,6 +234,7 @@ public class MusicJukeBoxMenu {
                 pickSongFromGenre();
             }
         }
+
 
     }
 
@@ -397,7 +463,12 @@ public class MusicJukeBoxMenu {
     }
 
     public void loginAsAdmin(){
+        adminLogin = true;
         System.out.println("case 7");
+    }
+
+    public void adminLogout(){
+        System.out.println("You are now logged out of the C2J Jukebox...");
     }
 
 
