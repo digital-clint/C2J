@@ -370,6 +370,8 @@ public class MusicItemTest {
                 "pop", "asia",
                 "1990", "album1");
         musicItem1.play();
+        // clear the static data back to 0
+        MusicItem.clearSongCount();
     }
 
     @Test
@@ -391,5 +393,11 @@ public class MusicItemTest {
         for (MusicItem eachSongInQueue: musicQueue) {
             eachSongInQueue.play();
         }
+        // previous
+        final int expectedTotalPlayedSong = 3;
+        final int actualPlayedSong = MusicItem.getSongCounter();
+        // clear the static data back to 0
+        MusicItem.clearSongCount();
+        assertEquals(expectedTotalPlayedSong, actualPlayedSong);
     }
 }

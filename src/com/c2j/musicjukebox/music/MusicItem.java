@@ -1,10 +1,6 @@
 package com.c2j.musicjukebox.music;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.IllegalFormatException;
-import java.util.Objects;
+import java.util.*;
 
 public class MusicItem implements Comparable<MusicItem> {
     private String title;
@@ -16,9 +12,9 @@ public class MusicItem implements Comparable<MusicItem> {
     private static final double DEFAULT_PRICE = 0.25;
     // counter to keep track how much song did it play
     private static int SONG_COUNTER = 0;
+    // private static Map<MusicItem, Integer> PLAYED_MUSIC_HISTORY = new HashMap<>();
 
     public MusicItem() {
-
     }
 
     // Initialize MusicGenre and MusicRegion with received Enum datatype
@@ -240,13 +236,21 @@ public class MusicItem implements Comparable<MusicItem> {
         // increase song counter
         SONG_COUNTER++;
         // created thread
-
         Thread playSongThread = new Thread();
-        System.out.println(getTitle() + " is playing ♪ ♪ ♫");
+        System.out.println("Play " + getTitle() + " ♪ ♪ ♫");
         try {
             playSongThread.sleep(3000);
             System.out.println(getTitle() + " is Finished.");
         } catch (InterruptedException e) {}
+    }
+
+    public static int getSongCounter() {
+        return SONG_COUNTER;
+    }
+
+
+    public static void clearSongCount() {
+        SONG_COUNTER = 0;
     }
 
     // ==========================================
@@ -254,14 +258,14 @@ public class MusicItem implements Comparable<MusicItem> {
 
     @Override
     public String toString() {
-        return "MusicItem{" +
-                "title='" + title + '\'' +
-                ", artist='" + artist + '\'' +
-                ", musicGenre=" + musicGenre +
-                ", musicRegions=" + musicRegions +
-                ", year=" + year +
-                ", album='" + album + '\'' +
-                '}';
+        return "[" +
+                "Title='" + title + '\'' +
+                ", Artist='" + artist + '\'' +
+                ", MusicGenre=" + musicGenre +
+                ", MusicRegions=" + musicRegions +
+                ", Year=" + year +
+                ", Album='" + album + '\'' +
+                ']';
     }
 
     @Override
