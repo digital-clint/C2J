@@ -275,7 +275,7 @@ public class MusicCollection implements MusicUtilities {
     @Override
     public Collection<MusicItem> findByGenre(String targetGenre) throws IllegalArgumentException {
         if (targetGenre == null || targetGenre.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByGenre(String targetGenre) " +
+            throw new IllegalArgumentException("IllegalArgumentException=>findByGenre(String targetGenre)" +
                     " you must put target title as input.");
         }
         Collection<MusicItem> foundSongs = null;
@@ -345,6 +345,15 @@ public class MusicCollection implements MusicUtilities {
             throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear" +
                     " you must put target year as input.");
         }
+        // check ascii for special character
+        for (int i = 0; i < targetYear.length(); i++) {
+            char eachLetter = targetYear.charAt(i);
+            if (!(eachLetter >= '0' && eachLetter <= 9)) {
+                // System.out.println("Got in here");
+                throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear)" +
+                        " The year must only contains numbers");
+            }
+        }
 
         // check if user year input is length of 4
         if (targetYear.trim().length() > 4) {
@@ -355,7 +364,7 @@ public class MusicCollection implements MusicUtilities {
         int userInputYearInteger = Integer.parseInt(targetYear);
         // check if user year input is not bigger than current year
         if (userInputYearInteger > currentYearInteger) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYea" +
+            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear" +
                     " you must put target year that is not in future as input.");
         }
         Collection<MusicItem> foundSongs = null;
@@ -375,13 +384,25 @@ public class MusicCollection implements MusicUtilities {
     @Override
     public Collection<MusicItem> findByAlbum(String targetAlbum) throws IllegalArgumentException {
         if (targetAlbum == null || targetAlbum.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByAlbum(String targetAlbum) " +
+            throw new IllegalArgumentException("IllegalArgumentException=>findByAlbum(String targetAlbum)" +
                     " you must put target title as input.");
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
                 .filter(item -> item.getAlbum().equalsIgnoreCase(targetAlbum))
                 .collect(Collectors.toList());
+
+        // find the best possible match
+        if (foundSongs == null || foundSongs.size() == 0) {
+            foundSongs = musicItemCollections.stream()
+                    .filter(item -> item.getAlbum()
+                            .toLowerCase()
+                            .startsWith(targetAlbum.toLowerCase()))
+                    .filter(item -> item.getAlbum()
+                            .toUpperCase()
+                            .startsWith(targetAlbum.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
 
         // base logic for if there are no exact matching song find something similar to the user
         if (foundSongs == null || foundSongs.size() == 0) {
