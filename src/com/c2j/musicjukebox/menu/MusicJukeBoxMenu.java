@@ -13,10 +13,7 @@ public class MusicJukeBoxMenu {
     private String userInput;
     private int userNumChoice;
     private MusicCollection jukeboxConsole = MusicCollection.createInstance();
-
     String regionName;
-
-
 
 
     //This method will start the Jukebox
@@ -107,8 +104,22 @@ public class MusicJukeBoxMenu {
     public void pickSongFromGenre(){
         System.out.println("Please enter the Genre that contains the song you are looking for?: ");
         userInput = scan.nextLine();
-        Collection<MusicItem> songsFoundByGenre = jukeboxConsole.findByGenre(userInput);
-        System.out.println("Song to be added to queue: " + songRetrievedByGenre(songsFoundByGenre));
+        Collection<MusicItem> songsFoundByGenre = null;
+        boolean isValidOption = true;
+        try{
+            songsFoundByGenre = jukeboxConsole.findByGenre(userInput);
+        } catch (IllegalArgumentException e){
+            isValidOption = false;
+            System.out.println(e.getMessage());
+        } finally {
+            if (isValidOption){
+                System.out.println("Song to be added to queue: " + songRetrievedByGenre(songsFoundByGenre));
+            } else {
+                System.out.println("-------------------------------------------");
+                pickSongFromGenre();
+            }
+        }
+
     }
 
     public MusicItem songRetrievedByGenre(Collection<MusicItem> songGenreCollectionArg){
@@ -220,7 +231,7 @@ public class MusicJukeBoxMenu {
 
         try {
             userNumChoice = Integer.parseInt(userInput);
-            if(userNumChoice != (int)userNumChoice){
+            if((userNumChoice != (int)userNumChoice) || (userNumChoice > count - 1) || (userNumChoice < 1)){
                 throw new NumberFormatException();
             }
         }
@@ -311,5 +322,6 @@ public class MusicJukeBoxMenu {
     public void loginAsAdmin(){
         System.out.println("case 7");
     }
+
 
 }

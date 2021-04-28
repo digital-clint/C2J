@@ -278,6 +278,7 @@ public class MusicCollection implements MusicUtilities {
             throw new IllegalArgumentException("IllegalArgumentException=>findByGenre(String targetGenre)" +
                     " you must put target title as input.");
         }
+
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
                 .filter(item -> item.getMusicGenre().toString().equalsIgnoreCase(targetGenre))
