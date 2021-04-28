@@ -3,6 +3,7 @@ package com.c2j.musicjukebox.music;
 import java.util.*;
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MusicCollection implements MusicUtilities {
 
@@ -116,6 +117,7 @@ public class MusicCollection implements MusicUtilities {
 
         // best possible matching
         if (foundSongs == null || foundSongs.size() == 0) {
+            System.out.println("IT gets ehere");
             foundSongs = musicItemCollections.stream()
                     .filter(item -> item.getTitle().toLowerCase()
                             .startsWith(targetTitle.toLowerCase()))
@@ -128,6 +130,7 @@ public class MusicCollection implements MusicUtilities {
         // second best possible matching
         // base logic for if there are no exact matching song
         if (foundSongs == null || foundSongs.size() == 0) {
+            System.out.println("IT should not gets ehere");
             // check if target title
             // get every thing starts from partial
             for (int i = 0; i < targetTitle.length(); i++) {
@@ -477,6 +480,20 @@ public class MusicCollection implements MusicUtilities {
             }
             System.out.println("=".repeat(15));
             System.out.println("Total $: " + calculateInvoice());
+        }
+    }
+
+    @Override
+    public void displayTop10PlayedSong() {
+        System.out.println("=".repeat(5) + "Top 10 Most Played Music" + "=".repeat(5));
+        if (PLAYED_MUSIC_HISTORY == null || PLAYED_MUSIC_HISTORY.size() == 0) {
+            System.out.println("Cannot read any played music record");
+        } else {
+            PLAYED_MUSIC_HISTORY.entrySet().stream()
+                    .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                    .limit(10)
+                    .forEach(System.out::println);
+
         }
     }
 
