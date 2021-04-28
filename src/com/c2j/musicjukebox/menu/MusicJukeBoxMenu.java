@@ -280,8 +280,21 @@ public class MusicJukeBoxMenu {
     public void findSongByReleaseYear(){
         System.out.println("Please enter the year when the song was released?: ");
         userInput = scan.nextLine();
-        Collection<MusicItem> songsFoundByYear = jukeboxConsole.findByYear(userInput);
-        System.out.println("Song to be added to queue: " + songRetrievedByReleaseYear(songsFoundByYear));
+        Collection<MusicItem> songsFoundByYear = null;
+        boolean isValidOption = true;
+        try{
+            songsFoundByYear = jukeboxConsole.findByYear(userInput);
+        } catch (IllegalArgumentException e){
+            isValidOption = false;
+            System.out.println(e.getMessage());
+        } finally {
+            if (isValidOption){
+                System.out.println("Song to be added to queue: " + songRetrievedByReleaseYear(songsFoundByYear));
+            } else {
+                System.out.println("-------------------------------------------");
+                findSongByReleaseYear();
+            }
+        }
     }
 
     public MusicItem songRetrievedByReleaseYear(Collection<MusicItem> songReleaseYearCollectionArg){
