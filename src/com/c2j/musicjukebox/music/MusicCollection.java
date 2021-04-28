@@ -348,7 +348,7 @@ public class MusicCollection implements MusicUtilities {
         // check ascii for special character
         for (int i = 0; i < targetYear.length(); i++) {
             char eachLetter = targetYear.charAt(i);
-            if (!(eachLetter >= '0' && eachLetter <= 9)) {
+            if (!(eachLetter >= '0' && eachLetter <= '9')) {
                 // System.out.println("Got in here");
                 throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear)" +
                         " The year must only contains numbers");
@@ -425,25 +425,41 @@ public class MusicCollection implements MusicUtilities {
 
     @Override
     public void displayAllMusic(String sortedWay) throws IllegalArgumentException {
-//        if (sortedWay == null || sortedWay.trim().length() == 0) {
-//            throw new IllegalArgumentException("IllegalArgumentException=>displayAllMusic(String sortedWay)" +
-//                    " parameter cannot be null or empty");
-//        }
-//        switch (sortedWay.toLowerCase()) {
-//            case "Region":
-//            case "region":
-//            case "r":
-//                displayAllMusicSortedByRegion();
-//                break;
-//            case "Genre":
-//            case "genre":
-//            case "g":
-//                displayAllMusicSortedByGenre();
-//                break;
-//            default:
-//                break;
-//        }
-        displayAllMusicSortedByReleasedYear();
+        if (sortedWay == null || sortedWay.trim().length() == 0) {
+            throw new IllegalArgumentException("IllegalArgumentException=>displayAllMusic(String sortedWay)" +
+                    " parameter cannot be null or empty");
+        }
+        switch (sortedWay.toLowerCase()) {
+            case "Region":
+            case "region":
+            case "r":
+                displayAllMusicSortedByRegion();
+                break;
+            case "Genre":
+            case "genre":
+            case "g":
+                displayAllMusicSortedByGenre();
+                break;
+            case "Artist":
+            case "artist":
+            case "a":
+                displayAllMusicSortedByArtist();
+                break;
+            case "Title":
+            case "title":
+            case "t":
+                displayAllMusicSortedByTitle();
+                break;
+            case "Year":
+            case "year":
+            case "y":
+                displayAllMusicSortedByReleasedYear();
+                break;
+            default:
+                System.out.println("Default Sorting: by title");
+                displayAllMusicSortedByTitle();
+                break;
+        }
     }
 
     @Override
@@ -458,8 +474,61 @@ public class MusicCollection implements MusicUtilities {
 
     // ============================================
     // private helper methods for display all music
-    
+    private void displayAllMusicSortedByArtist() {
+        System.out.println("=".repeat(50));
+        System.out.println("Sorted By Music Artist" + "============================\n");
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            String firstLetter = Character.toString(ch);
+            // System.out.println(firstLetter);
+            long count = musicItemCollections.stream()
+                    .filter(musicItem -> musicItem.getArtist().toLowerCase()
+                            .startsWith(firstLetter))
+                    .count();
 
+            // if count is 0 (not exist in my music data set no need to operate)
+            if (count == 0) {
+                continue;
+            }
+
+            System.out.println("=Artist starts with '" + firstLetter.toUpperCase() + "'= total count: " + count + " songs exists in the dataset for that year");
+            musicItemCollections.stream()
+                    .filter(song -> song.getArtist().toLowerCase()
+                            .startsWith(firstLetter))
+                    .forEach(musicItem -> {
+                        System.out.println("Artist: " + musicItem.getArtist() + ", Title: " + musicItem.getTitle()
+                                + ", Region: " + musicItem.getMusicRegions() + ", Genre: " + musicItem.getMusicGenre()
+                                + ", Album: " + musicItem.getAlbum() + ", Released year: " + musicItem.getYear());
+                    });
+            System.out.println("=".repeat(50));
+        }
+
+    }
+
+    private void displayAllMusicSortedByTitle() {
+        // this is the default way of presenting
+        System.out.println("=".repeat(50));
+        System.out.println("Sorted By Music Title" + "==========================\n");
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            String firstLetter = Character.toString(ch);
+            long count = musicItemCollections.stream()
+                    .filter(musicItem -> musicItem.getTitle().toLowerCase()
+                            .startsWith(firstLetter))
+                    .count();
+            if (count == 0) {
+                continue;
+            }
+            System.out.println("= Music title starts with '" + firstLetter.toUpperCase() + "'= total count: " + count
+                    + " songs exists in the dataset for that year");
+            musicItemCollections.stream()
+                    .filter(musicItem -> musicItem.getTitle().toLowerCase().startsWith(firstLetter))
+                    .forEach(musicItem -> {
+                        System.out.println("Title: " + musicItem.getTitle() + ", Artist: " + musicItem.getArtist()
+                                + ", Region: " + musicItem.getMusicRegions() + ", Genre: " + musicItem.getMusicGenre()
+                                + ", Album: " + musicItem.getAlbum() + ", Released year: " + musicItem.getYear());
+                    });
+            System.out.println("=".repeat(50));
+        }
+    }
 
     private void displayAllMusicSortedByReleasedYear() {
         // prepare data
@@ -476,64 +545,82 @@ public class MusicCollection implements MusicUtilities {
         int maxYear = Integer.parseInt(currentYearString);
         // proceed the data to print all music data sorted by released year
         System.out.println("=".repeat(50));
-        System.out.println("Sorted By Music Released Year" + "=====================");
+        System.out.println("Sorted By Music Released Year" + "=====================\n");
         for (int i = minYear; i <= maxYear; i++) {
             String targetYear = String.valueOf(i).substring(0, 3);
             long count = musicItemCollections.stream()
                     .filter(musicItem -> musicItem.getYear().startsWith(targetYear))
                     .count();
 
+            // if count is 0 (not exist in my music data set no need to operate)
+            if (count == 0) {
+                continue;
+            }
+
             System.out.println("=" + targetYear + "0s music= total count: " + count + " songs exists in the dataset for that year");
             musicItemCollections.stream()
                    .filter(musicItem -> musicItem.getYear().startsWith(targetYear))
                    .sorted(Comparator.comparing(MusicItem::getYear))
                    .forEach(musicItem -> {
-                       System.out.println("Title: " + musicItem.getTitle() + ", Artist: " + musicItem.getArtist()
+                       System.out.println("Released year: " + musicItem.getYear() + ", Title: " + musicItem.getTitle()
+                               + ", Artist: " + musicItem.getArtist()
                                + ", Region: " + musicItem.getMusicRegions() + ", Genre: " + musicItem.getMusicGenre()
-                               + ", Album: " + musicItem.getAlbum() + ", Released year: " + musicItem.getYear());
+                               + ", Album: " + musicItem.getAlbum());
                    });
-            System.out.println("=".repeat(50) + "\n");
+            System.out.println("=".repeat(50));
         }
     }
 
     private void displayAllMusicSortedByGenre() {
         System.out.println("=".repeat(50));
-        System.out.println("Sorted By Music Genre ===========================");
+        System.out.println("Sorted By Music Genre ===========================\n");
         for (int i = 0; i < MusicGenre.values().length - 1; i++) {
             MusicGenre targetGenre = MusicGenre.values()[i];
             long count = musicItemCollections.stream()
                     .filter(musicItemGenre -> musicItemGenre.getMusicGenre() == targetGenre)
                     .count();
+
+            // if count is 0 (not exist in my music data set no need to operate)
+            if (count == 0) {
+                continue;
+            }
             System.out.println("=" + targetGenre + "= total count: " + count + " songs exists in the dataset for that Genre");
             musicItemCollections.stream()
                     .filter(musicItemGenre -> musicItemGenre.getMusicGenre() == targetGenre)
                     .forEach(musicItem -> {
-                        System.out.println("Title: " + musicItem.getTitle() + ", Artist: " + musicItem.getArtist()
-                                + ", Region: " + musicItem.getMusicRegions() + ", Genre: " + musicItem.getMusicGenre()
+                        System.out.println("Genre: "  + musicItem.getMusicGenre() + ", Title: " + musicItem.getTitle()
+                                + ", Artist: " + musicItem.getArtist()
+                                + ", Region: " + musicItem.getMusicRegions()
                                 + ", Album: " + musicItem.getAlbum() + ", Released year: " + musicItem.getYear());
                     });
-            System.out.println("=".repeat(50) + "\n");
+            System.out.println("=".repeat(50));
         }
     }
 
     // helper method to print sorted by region
     private void displayAllMusicSortedByRegion() {
         System.out.println("=".repeat(50));
-        System.out.println("Sorted By Music Region ===========================");
+        System.out.println("Sorted By Music Region ===========================\n");
         for (int i = 0; i < MusicRegions.values().length - 1; i++) {
             MusicRegions targetRegion = MusicRegions.values()[i];
             long count = musicItemCollections.stream()
                     .filter(musicItemRegion -> musicItemRegion.getMusicRegions() == targetRegion)
                     .count();
+
+            // if count is 0 (not exist in my music data set no need to operate)
+            if (count == 0) {
+                continue;
+            }
             System.out.println("=" + targetRegion + "= total count: " + count + " songs exists in the dataset for that region");
             musicItemCollections.stream()
                     .filter(musicItemRegion -> musicItemRegion.getMusicRegions() == targetRegion)
                     .forEach(musicItem -> {
-                        System.out.println("Title: " + musicItem.getTitle() + ", Artist: " + musicItem.getArtist()
-                                + ", Region: " + musicItem.getMusicRegions() + ", Genre: " + musicItem.getMusicGenre()
+                        System.out.println("Region: " + musicItem.getMusicRegions() + ", Title: " + musicItem.getTitle()
+                                + ", Artist: " + musicItem.getArtist()
+                                + ", Genre: " + musicItem.getMusicGenre()
                                 + ", Album: " + musicItem.getAlbum() + ", Released year: " + musicItem.getYear());
                     });
-            System.out.println("=".repeat(50) + "\n");
+            System.out.println("=".repeat(50));
         }
     }
 }

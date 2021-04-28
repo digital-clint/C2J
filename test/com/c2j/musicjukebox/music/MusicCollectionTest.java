@@ -898,12 +898,61 @@ public class MusicCollectionTest {
         }
     }
 
-    // need
-    // displayAllMusic
     // play
     // printInvoice
     @Test
-    public void testDisplayAllMusicSortedByRegion() {
-        defaultCollection.displayAllMusic("hello");
+    public void testDisplayAllMusicSortedByRegionInputSingleLetter() {
+        defaultCollection.displayAllMusic("r");
     }
+
+    @Test
+    public void testDisplayAllMusicSortedByGenreInputSingleLetter() {
+        defaultCollection.displayAllMusic("g");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByArtistInputSingleLetter() {
+        defaultCollection.displayAllMusic("a");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByTitleInputSingleLetter() {
+        defaultCollection.displayAllMusic("t");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByReleasedYearInputSingleLetter() {
+        defaultCollection.displayAllMusic("y");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByRegionInputFullString() {
+        defaultCollection.displayAllMusic("region");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByGenreInputFullString() {
+        defaultCollection.displayAllMusic("genre");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByArtistInputFullString() {
+        defaultCollection.displayAllMusic("artist");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByTitleInputFullString() {
+        defaultCollection.displayAllMusic("title");
+    }
+
+    @Test
+    public void testDisplayAllMusicSortedByReleasedYearInputFullString() {
+        defaultCollection.displayAllMusic("year");
+    }
+
+    @Test
+    public void testDisplayAllMusicDefaultInputRandom() {
+        defaultCollection.displayAllMusic("~!@");
+    }
+
 }
