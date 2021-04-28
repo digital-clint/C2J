@@ -265,13 +265,47 @@ public class MusicJukeBoxMenu {
         return songRetrieved;
     }
 
-
+    //Find Song based on Release Year
     public void findSongByReleaseYear(){
-        System.out.println("case 5");
+        System.out.println("Please enter the year when the song was released?: ");
+        userInput = scan.nextLine();
+        Collection<MusicItem> songsFoundByYear = jukeboxConsole.findByYear(userInput);
+        System.out.println("Song to be added to queue: " + songRetrievedByReleaseYear(songsFoundByYear));
     }
 
+    public MusicItem songRetrievedByReleaseYear(Collection<MusicItem> songReleaseYearCollectionArg){
+        Collection<MusicItem> songReleaseYearCollection = songReleaseYearCollectionArg;
+        ArrayList<MusicItem> listOfSongs = new ArrayList<>();
+
+        for (MusicItem song: songReleaseYearCollection) {
+            listOfSongs.add(song);
+        }
+
+        //Song retrieved is a single music item
+        MusicItem songRetrieved = chooseASong(listOfSongs);
+        return songRetrieved;
+    }
+
+
+    //Find Song based on Album Name
     public void findSongByAlbumName(){
-        System.out.println("case 6");
+        System.out.println("Please enter the name of the album the song was featured on: ");
+        userInput = scan.nextLine();
+        Collection<MusicItem> songsFoundByAlbumName = jukeboxConsole.findByAlbum(userInput);
+        System.out.println("Song to be added to queue: " + songRetrievedByAlbumName(songsFoundByAlbumName));
+    }
+
+    public MusicItem songRetrievedByAlbumName(Collection<MusicItem> songAlbumNameCollectionArg){
+        Collection<MusicItem> songAlbumNameCollection = songAlbumNameCollectionArg;
+        ArrayList<MusicItem> listOfSongs = new ArrayList<>();
+
+        for (MusicItem song: songAlbumNameCollection) {
+            listOfSongs.add(song);
+        }
+
+        //Song retrieved is a single music item
+        MusicItem songRetrieved = chooseASong(listOfSongs);
+        return songRetrieved;
     }
 
     public void loginAsAdmin(){
