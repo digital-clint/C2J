@@ -10,10 +10,12 @@ import java.io.IOException;
 import java.util.stream.Stream;
 
 public class UserSongRequest extends MusicJukeBoxMenu{
-    public static void main(String[] args) {
-        Scanner musicIn = new Scanner(System.in);
+
+        private Scanner musicIn = new Scanner(System.in);
+
+        public void musicOut(String text){
         System.out.println("What is the song your wish to be added? ");
-        String text= musicIn.nextLine();
+        text= musicIn.nextLine();
 
 
         try{
