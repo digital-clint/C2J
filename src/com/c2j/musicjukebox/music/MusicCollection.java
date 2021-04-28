@@ -174,15 +174,18 @@ public class MusicCollection implements MusicUtilities {
         // best possible matching
         if (foundSongs == null || foundSongs.size() == 0) {
             foundSongs = musicItemCollections.stream()
-                    .filter(item -> item.getTitle().toLowerCase()
+                    .filter(item -> item.getMusicRegions().toString()
+                            .toLowerCase()
                             .startsWith(targetByRegion.toLowerCase()))
-                    .filter(item -> item.getTitle().toUpperCase()
+                    .filter(item -> item.getMusicRegions().toString()
+                            .toUpperCase()
                             .startsWith(targetByRegion.toUpperCase()))
                     .collect(Collectors.toList());
         }
 
         // second best possible matching
         if (foundSongs == null || foundSongs.size() == 0) {
+            // System.out.println("Should not get here");
             for (int i = 0; i < targetByRegion.length(); i++) {
                 String firstCharactertargetTitle = targetByRegion.substring(0, targetByRegion.length() - i);
                 System.out.println(firstCharactertargetTitle);
@@ -228,13 +231,25 @@ public class MusicCollection implements MusicUtilities {
     @Override
     public Collection<MusicItem> findByArtist(String targetArtist) throws IllegalArgumentException {
         if (targetArtist == null || targetArtist.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByArtist(String targetArtist) " +
+            throw new IllegalArgumentException("IllegalArgumentException=>findByArtist(String targetArtist)" +
                     " you must put target title as input.");
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
                 .filter(item -> item.getArtist().equalsIgnoreCase(targetArtist))
                 .collect(Collectors.toList());
+
+        // best possible matching
+        if (foundSongs == null || foundSongs.size() == 0) {
+            foundSongs = musicItemCollections.stream()
+                    .filter(item -> item.getArtist()
+                            .toLowerCase()
+                            .startsWith(targetArtist.toLowerCase()))
+                    .filter(item -> item.getArtist()
+                            .toUpperCase()
+                            .startsWith(targetArtist.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
 
         // base logic for if there are no exact matching song
         if (foundSongs == null || foundSongs.size() == 0) {
@@ -269,6 +284,19 @@ public class MusicCollection implements MusicUtilities {
                 .sorted()
                 .collect(Collectors.toList());
 
+        // best possible matching
+        if (foundSongs == null || foundSongs.size() == 0) {
+            foundSongs = musicItemCollections.stream()
+                    .filter(item -> item.getMusicGenre().toString()
+                            .toLowerCase()
+                            .startsWith(targetGenre.toLowerCase()))
+                    .filter(item -> item.getMusicGenre().toString()
+                            .toUpperCase()
+                            .startsWith(targetGenre.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
+
+        // second best possible matching
         if (foundSongs == null || foundSongs.size() == 0) {
             for (int i = 0; i < targetGenre.length(); i++) {
                 String firstCharactertargetTitle = targetGenre.substring(0, targetGenre.length() - i);
