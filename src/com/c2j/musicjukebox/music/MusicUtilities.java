@@ -19,7 +19,7 @@ public interface MusicUtilities {
     // method overloading param is Date
     // public Collection<MusicItem> findByYear(Date targetYear) throws IllegalArgumentException;
     public Collection<MusicItem> findByAlbum(String targetAlbum) throws IllegalArgumentException;
-    public void displayAllMusic();
+    public void displayAllMusic(String sortedWay) throws IllegalArgumentException;
     public void play();
     public void printInvoice();
 }

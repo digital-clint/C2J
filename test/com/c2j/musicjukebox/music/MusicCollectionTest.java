@@ -902,4 +902,8 @@ public class MusicCollectionTest {
     // displayAllMusic
     // play
     // printInvoice
+    @Test
+    public void testDisplayAllMusicSortedByRegion() {
+        defaultCollection.displayAllMusic("hello");
+    }
 }
