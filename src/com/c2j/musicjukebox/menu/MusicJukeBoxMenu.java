@@ -13,6 +13,7 @@ public class MusicJukeBoxMenu {
     private String userInput;
     private int userNumChoice;
     private MusicCollection jukeboxConsole = MusicCollection.createInstance();
+
     String regionName;
 
 
@@ -94,7 +95,13 @@ public class MusicJukeBoxMenu {
 
 
     public void viewAllSongs(){
-        System.out.println("case 1");
+        Collection<MusicItem> allSongs = MusicCollection.getAllMusic();
+        System.out.println("Displaying all songs in Jukebox.......");
+        System.out.println("-------------------------------------------");
+        for (MusicItem song : allSongs) {
+            System.out.println(song);
+        }
+        System.out.println("-------------------------------------------");
     }
 
     public void pickSongFromGenre(){
