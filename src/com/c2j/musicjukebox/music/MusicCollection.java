@@ -140,7 +140,7 @@ public class MusicCollection implements MusicUtilities {
             // get every thing starts from partial
             for (int i = 0; i < targetTitle.length(); i++) {
                 String firstCharactertargetTitle = targetTitle.substring(0, targetTitle.length() - i);
-                System.out.println(firstCharactertargetTitle);
+                // System.out.println(firstCharactertargetTitle);
                 foundSongs = musicItemCollections.stream()
                         .filter(item -> item.getTitle().toLowerCase()
                                 .startsWith(firstCharactertargetTitle.toLowerCase()))
@@ -188,7 +188,7 @@ public class MusicCollection implements MusicUtilities {
             // System.out.println("Should not get here");
             for (int i = 0; i < targetByRegion.length(); i++) {
                 String firstCharactertargetTitle = targetByRegion.substring(0, targetByRegion.length() - i);
-                System.out.println(firstCharactertargetTitle);
+                // System.out.println(firstCharactertargetTitle);
                 foundSongs = musicItemCollections.stream()
                         .filter(item -> item.getMusicRegions().toString()
                                 .toLowerCase()
@@ -301,7 +301,7 @@ public class MusicCollection implements MusicUtilities {
         if (foundSongs == null || foundSongs.size() == 0) {
             for (int i = 0; i < targetGenre.length(); i++) {
                 String firstCharactertargetTitle = targetGenre.substring(0, targetGenre.length() - i);
-                System.out.println(firstCharactertargetTitle);
+                // System.out.println(firstCharactertargetTitle);
                 foundSongs = musicItemCollections.stream()
                         .filter(item -> item.getMusicGenre().toString()
                                 .toLowerCase()
@@ -431,27 +431,22 @@ public class MusicCollection implements MusicUtilities {
                     " parameter cannot be null or empty");
         }
         switch (sortedWay.toLowerCase()) {
-            case "Region":
             case "region":
             case "r":
                 displayAllMusicSortedByRegion();
                 break;
-            case "Genre":
             case "genre":
             case "g":
                 displayAllMusicSortedByGenre();
                 break;
-            case "Artist":
             case "artist":
             case "a":
                 displayAllMusicSortedByArtist();
                 break;
-            case "Title":
             case "title":
             case "t":
                 displayAllMusicSortedByTitle();
                 break;
-            case "Year":
             case "year":
             case "y":
                 displayAllMusicSortedByReleasedYear();

@@ -14,6 +14,8 @@ public class MusicItem implements Comparable<MusicItem> {
     private String year;
     private String album;
     private static final double DEFAULT_PRICE = 0.25;
+    // counter to keep track how much song did it play
+    private static int SONG_COUNTER = 0;
 
     public MusicItem() {
 
@@ -234,8 +236,22 @@ public class MusicItem implements Comparable<MusicItem> {
         return DEFAULT_PRICE;
     }
 
+    synchronized public void play() {
+        // increase song counter
+        SONG_COUNTER++;
+        // created thread
+
+        Thread playSongThread = new Thread();
+        System.out.println(getTitle() + " is playing ♪ ♪ ♫");
+        try {
+            playSongThread.sleep(3000);
+            System.out.println(getTitle() + " is Finished.");
+        } catch (InterruptedException e) {}
+    }
+
     // ==========================================
     // =========== Override methods =============
+
     @Override
     public String toString() {
         return "MusicItem{" +
@@ -268,4 +284,5 @@ public class MusicItem implements Comparable<MusicItem> {
     public int hashCode() {
         return Objects.hash(title, artist, musicGenre, musicRegions, year, album);
     }
+
 }
