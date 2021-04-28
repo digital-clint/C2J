@@ -112,7 +112,6 @@ public class MusicCollection implements MusicUtilities {
 
     @Override
     public Collection<MusicItem> findByTitle(String targetTitle) throws IllegalArgumentException {
-        System.out.println("Got in here");
         if (targetTitle == null || targetTitle.length() == 0) {
             throw new IllegalArgumentException("IllegalArgumentException=>findByTitle(String targetTitle)" +
                     " you must put target title as input.");
@@ -122,6 +121,19 @@ public class MusicCollection implements MusicUtilities {
                 .filter(item -> item.getTitle().equalsIgnoreCase(targetTitle))
                 .collect(Collectors.toList());
 
+
+        // best possible matching
+        if (foundSongs == null || foundSongs.size() == 0) {
+            foundSongs = musicItemCollections.stream()
+                    .filter(item -> item.getTitle().toLowerCase()
+                            .startsWith(targetTitle.toLowerCase()))
+                    .filter(item -> item.getTitle().toUpperCase()
+                            .startsWith(targetTitle.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
+
+
+        // second best possible matching
         // base logic for if there are no exact matching song
         if (foundSongs == null || foundSongs.size() == 0) {
             // check if target title
@@ -159,6 +171,17 @@ public class MusicCollection implements MusicUtilities {
                 .sorted()
                 .collect(Collectors.toList());
 
+        // best possible matching
+        if (foundSongs == null || foundSongs.size() == 0) {
+            foundSongs = musicItemCollections.stream()
+                    .filter(item -> item.getTitle().toLowerCase()
+                            .startsWith(targetByRegion.toLowerCase()))
+                    .filter(item -> item.getTitle().toUpperCase()
+                            .startsWith(targetByRegion.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
+
+        // second best possible matching
         if (foundSongs == null || foundSongs.size() == 0) {
             for (int i = 0; i < targetByRegion.length(); i++) {
                 String firstCharactertargetTitle = targetByRegion.substring(0, targetByRegion.length() - i);
