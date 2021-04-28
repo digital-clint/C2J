@@ -3,23 +3,29 @@ package com.c2j.musicjukebox.menu;
 import com.c2j.musicjukebox.music.MusicCollection;
 import com.c2j.musicjukebox.music.MusicItem;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Scanner;
+import java.awt.*;
+import java.io.IOException;
+import java.util.*;
 
 public class MusicJukeBoxMenu {
     private Scanner scan = new Scanner(System.in);
     private String userInput;
     private int userNumChoice;
     private MusicCollection jukeboxConsole = MusicCollection.createInstance();
-    String regionName;
+    private String regionName;
+    boolean onlyViewedSongListing;
+
 
 
     //This method will start the Jukebox
     public void start(){
         welcome();
         displayJukeboxOptions();
+        if (onlyViewedSongListing == true){
+            noChoiceRunAgain();
+        } else {
+            runAgain();
+        }
     };
 
     public void welcome(){
@@ -28,6 +34,50 @@ public class MusicJukeBoxMenu {
         System.out.println("What would you like to do?");
         System.out.println();
     }
+
+    public void runAgain(){
+        System.out.println();
+        System.out.println("Would you like to pick another song to play?");
+        System.out.print("Enter - Yes or No: ");
+        userInput = scan.nextLine();
+        String lowerCaseUserInput = userInput.toLowerCase();
+        if (lowerCaseUserInput.equals("y") || lowerCaseUserInput.equals("yes")){
+            displayJukeboxOptions();
+        } else if (userInput.toLowerCase().equals("n") || userInput.toLowerCase().equals("no")){
+            System.out.println("-----------------------------------------");
+            System.out.println("Thanks for using the C2J Jukebox!");
+            System.out.println("♪ ♪ ♫ See you soon ♪ ♪ ♫");
+        }
+        else {
+            System.out.println();
+            System.out.println("Invalid input...try again");
+            runAgain();
+        }
+    }
+
+    public void noChoiceRunAgain(){
+        System.out.println();
+        System.out.println("You only viewed the inventory of songs...");
+        System.out.println("Would you like to pick a song to play this time?");
+        System.out.print("Enter - Yes or No: ");
+        userInput = scan.nextLine();
+        String lowerCaseUserInput = userInput.toLowerCase();
+        if (lowerCaseUserInput.equals("y") || lowerCaseUserInput.equals("yes")){
+            start();
+        } else if (userInput.toLowerCase().equals("n") || userInput.toLowerCase().equals("no")){
+            System.out.println("-----------------------------------------");
+            System.out.println("Thanks for using the C2J Jukebox!");
+            System.out.println("In the future we hope to add the song you'd like to play...");
+            System.out.println("♪ ♪ ♫ ♪ ♪ ♫");
+        }
+        else {
+            System.out.println();
+            System.out.println("Invalid input...try again");
+            runAgain();
+        }
+    }
+
+
 
     public void displayJukeboxOptions(){
         System.out.println("1) View all songs in Jukebox");
@@ -57,6 +107,7 @@ public class MusicJukeBoxMenu {
         switch (userNumChoice){
             case 1:
                 viewAllSongs();
+                onlyViewedSongListing = true;
                 break;
 
             case 2:
@@ -99,6 +150,7 @@ public class MusicJukeBoxMenu {
             System.out.println(song);
         }
         System.out.println("-------------------------------------------");
+
     }
 
     public void pickSongFromGenre(){
