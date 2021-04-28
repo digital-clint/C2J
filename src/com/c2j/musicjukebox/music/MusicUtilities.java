@@ -23,4 +23,5 @@ public interface MusicUtilities {
     public void displayAllMusic(String sortedWay) throws IllegalArgumentException;
     public void play(Queue<MusicItem> userSelectedSong) throws IllegalArgumentException;
     public void printInvoice();
+    public void displayTop10PlayedSong();
 }

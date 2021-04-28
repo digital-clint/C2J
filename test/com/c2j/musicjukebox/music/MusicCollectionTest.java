@@ -956,6 +956,46 @@ public class MusicCollectionTest {
         MusicItem.clearSongCount();
     }
 
+    // ========================================
+    // ====== Display Top 10 Played Song ======
+
+    @Test
+    public void testDisplayTop10PlayedSong() {
+        // put initial music set
+        Collection<MusicItem> dummyMusicList = defaultCollection.findByTitle("been");
+        Queue<MusicItem> myMusicList = new ArrayDeque<>();
+        for (MusicItem eachSongInDummy: dummyMusicList) {
+            myMusicList.offer(eachSongInDummy);
+        }
+        defaultCollection.play(myMusicList);
+        // put second music sets
+        Collection<MusicItem> toMakeTop = defaultCollection.findByTitle("b");
+        Queue<MusicItem> myMusicList2 = new ArrayDeque<>();
+        for (MusicItem eachSongInDummy: toMakeTop) {
+            myMusicList2.offer(eachSongInDummy);
+        }
+        defaultCollection.play(myMusicList2);
+        // put third music sets
+        Collection<MusicItem> toMakeExceedTen = defaultCollection.findByRegion(MusicRegions.EUROPE);
+        Queue<MusicItem> myMusicList3 = new ArrayDeque<>();
+        for (MusicItem eachSongInDummy: toMakeExceedTen) {
+            myMusicList3.offer(eachSongInDummy);
+        }
+        defaultCollection.play(myMusicList3);
+        // put fourth music sets
+        Collection<MusicItem> toMakeTopTwo = defaultCollection.findByTitle("Hammer Em Down");
+        Queue<MusicItem> myMusicList4 = new ArrayDeque<>();
+        for (MusicItem eachSongInDummy: toMakeTopTwo) {
+            myMusicList4.offer(eachSongInDummy);
+        }
+        defaultCollection.play(myMusicList4);
+        defaultCollection.displayTop10PlayedSong();
+        MusicItem.clearSongCount();
+    }
+
+
+    // =========================================
+
     @Test
     public void testDisplayAllMusicSortedByRegionInputSingleLetter() {
         defaultCollection.displayAllMusic("r");
