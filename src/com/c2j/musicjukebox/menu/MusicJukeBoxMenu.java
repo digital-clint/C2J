@@ -101,6 +101,7 @@ public class MusicJukeBoxMenu {
         System.out.println("case 2");
     }
 
+    //Find song based on region methods
     public void pickSongFromRegion(){
         System.out.println("What region would you like to pick a song from?");
         System.out.println();
@@ -178,6 +179,7 @@ public class MusicJukeBoxMenu {
         return songRetrieved;
     }
 
+    //Choose a song method after songs are in an arrayList
     public MusicItem chooseASong(ArrayList songs){
         MusicItem songChosen = new MusicItem();
         int count = 1;
@@ -217,11 +219,28 @@ public class MusicJukeBoxMenu {
     }
 
 
+    //Find Song based on title methods
     public void findSongByTitle(){
         System.out.println("Please enter the name of the song you are looking for?: ");
         userInput = scan.nextLine();
-        jukeboxConsole.findByTitle(userInput);
+        Collection<MusicItem> songsFoundByTitle = jukeboxConsole.findByTitle(userInput);
+        System.out.println("Song to be added to queue: " + songRetrievedByTitle(songsFoundByTitle));
+
     }
+
+    public MusicItem songRetrievedByTitle(Collection<MusicItem> songTitleCollectionArg){
+        Collection<MusicItem> songTitleCollection = songTitleCollectionArg;
+        ArrayList<MusicItem> listOfSongs = new ArrayList<>();
+
+        for (MusicItem song: songTitleCollection) {
+            listOfSongs.add(song);
+        }
+
+        //Song retrieved is a single music item
+        MusicItem songRetrieved = chooseASong(listOfSongs);
+        return songRetrieved;
+    }
+
 
     public void findSongByReleaseYear(){
         System.out.println("case 5");
