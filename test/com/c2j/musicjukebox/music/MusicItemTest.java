@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import java.lang.invoke.MutableCallSite;
 import java.sql.Date;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Queue;
 
 import static org.junit.Assert.*;
 
@@ -359,5 +362,34 @@ public class MusicItemTest {
                 "pop", "asia",
                 "1990", "album1");
         assertNotSame(musicItem1, musicItem2);
+    }
+
+    @Test
+    public void testPlayMusicSingleSong() {
+        MusicItem musicItem1 = new MusicItem("SongTitle1", "Artist1",
+                "pop", "asia",
+                "1990", "album1");
+        musicItem1.play();
+    }
+
+    @Test
+    public void testPlayMusicMultipleSong() {
+        MusicItem musicItem1 = new MusicItem("SongTitle1", "Artist1",
+                "pop", "asia",
+                "1990", "album1");
+        MusicItem musicItem2 = new MusicItem("SongTitle2", "Artist1",
+                "pop", "asia",
+                "1990", "album1");
+        MusicItem musicItem3 = new MusicItem("SongTitle3", "Artist1",
+                "pop", "asia",
+                "1990", "album1");
+
+        Queue<MusicItem> musicQueue = new ArrayDeque<>();
+        musicQueue.offer(musicItem1);
+        musicQueue.offer(musicItem2);
+        musicQueue.offer(musicItem3);
+        for (MusicItem eachSongInQueue: musicQueue) {
+            eachSongInQueue.play();
+        }
     }
 }

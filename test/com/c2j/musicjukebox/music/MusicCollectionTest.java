@@ -955,4 +955,5 @@ public class MusicCollectionTest {
         defaultCollection.displayAllMusic("~!@");
     }
 
+
 }
