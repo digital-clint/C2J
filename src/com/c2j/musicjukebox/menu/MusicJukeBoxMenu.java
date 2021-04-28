@@ -93,7 +93,7 @@ public class MusicJukeBoxMenu {
         }
     }
 
-
+    //View listing of all Songs
     public void viewAllSongs(){
         Collection<MusicItem> allSongs = MusicCollection.getAllMusic();
         System.out.println("Displaying all songs in Jukebox.......");
@@ -105,8 +105,25 @@ public class MusicJukeBoxMenu {
     }
 
     public void pickSongFromGenre(){
-        System.out.println("case 2");
+        System.out.println("Please enter the Genre that contains the song you are looking for?: ");
+        userInput = scan.nextLine();
+        Collection<MusicItem> songsFoundByGenre = jukeboxConsole.findByGenre(userInput);
+        System.out.println("Song to be added to queue: " + songRetrievedByGenre(songsFoundByGenre));
     }
+
+    public MusicItem songRetrievedByGenre(Collection<MusicItem> songGenreCollectionArg){
+        Collection<MusicItem> songGenreCollection = songGenreCollectionArg;
+        ArrayList<MusicItem> listOfSongs = new ArrayList<>();
+
+        for (MusicItem song: songGenreCollection) {
+            listOfSongs.add(song);
+        }
+
+        //Song retrieved is a single music item
+        MusicItem songRetrieved = chooseASong(listOfSongs);
+        return songRetrieved;
+    }
+
 
     //Find song based on region methods
     public void pickSongFromRegion(){
