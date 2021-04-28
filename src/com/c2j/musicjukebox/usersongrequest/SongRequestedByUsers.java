@@ -9,9 +9,14 @@ public class SongRequestedByUsers extends MusicJukeBoxMenu {
     public static void main(String[] args) {
         try{
             BufferedReader songsAlreadyRequested = new BufferedReader(
-                    new FileReader())
-        }catch(Exception ex){
-            return;
+                    new FileReader("C:\\Users\\jhurtaul\\Desktop\\SDE Cohort\\StudentWork\\Java_LabSetup_Part-2\\StudentWork\\IntmJ\\workspace\\C2J"));
+                String songFile;
+
+                while ((songFile = songsAlreadyRequested.readLine()) != null){
+                    System.out.println(songFile);
+                }
+                }catch(Exception ex){
+                return;
         }
     }
 }
