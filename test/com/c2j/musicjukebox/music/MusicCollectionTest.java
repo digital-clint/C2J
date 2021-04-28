@@ -3,9 +3,7 @@ package com.c2j.musicjukebox.music;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
@@ -898,8 +896,66 @@ public class MusicCollectionTest {
         }
     }
 
-    // play
-    // printInvoice
+    // ==================================
+    // ======== Play ====================
+
+    // CASE 1: Play multiple songs (each song 3 seconds)
+    @Test
+    public void testPlayMultipleMusic() {
+        Collection<MusicItem> dummyMusicList = defaultCollection.findByTitle("b");
+        Queue<MusicItem> myMusicList = new ArrayDeque<>();
+        for (MusicItem eachSongInDummy: dummyMusicList) {
+            myMusicList.offer(eachSongInDummy);
+        }
+        defaultCollection.play(myMusicList);
+        defaultCollection.printInvoice();
+        // clear the static data back to 0
+        MusicItem.clearSongCount();
+    }
+
+    // CASE 2: Play a song (3 seconds)
+    @Test
+    public void testPlaySingleMusic() {
+        Collection<MusicItem> dummyMusicList = defaultCollection.findByTitle("been");
+        // System.out.println(dummyMusicList);
+        Queue<MusicItem> myMusicList = new ArrayDeque<>();
+        for (MusicItem eachSongInDummy: dummyMusicList) {
+            myMusicList.offer(eachSongInDummy);
+        }
+        defaultCollection.play(myMusicList);
+        defaultCollection.printInvoice();
+        // clear the static data back to 0
+        MusicItem.clearSongCount();
+    }
+
+    // CASE 3: Exception
+    @Test (expected = IllegalArgumentException.class)
+    public void testPlayNullMusic() {
+        Collection<MusicItem> dummyMusicList = defaultCollection.findByTitle("been");
+        // System.out.println(dummyMusicList);
+        Queue<MusicItem> myMusicList = new ArrayDeque<>();
+        for (MusicItem eachSongInDummy: dummyMusicList) {
+            myMusicList.offer(eachSongInDummy);
+        }
+        // I am passing null
+        defaultCollection.play(null);
+        defaultCollection.printInvoice();
+        // clear the static data back to 0
+        MusicItem.clearSongCount();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testPlayEmptyQueueMusic() {
+        Collection<MusicItem> dummyMusicList = defaultCollection.findByTitle("been");
+        // System.out.println(dummyMusicList);
+        Queue<MusicItem> myMusicList = new ArrayDeque<>();
+        // passing an empty queue
+        defaultCollection.play(myMusicList);
+        defaultCollection.printInvoice();
+        // clear the static data back to 0
+        MusicItem.clearSongCount();
+    }
+
     @Test
     public void testDisplayAllMusicSortedByRegionInputSingleLetter() {
         defaultCollection.displayAllMusic("r");

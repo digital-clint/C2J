@@ -1,18 +1,14 @@
 package com.c2j.musicjukebox.music;
 
-import java.sql.Date;
 import java.util.*;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class MusicCollection implements MusicUtilities {
 
-    // private static final List<MusicItem> musics = Arrays.asList(
-//    new MusicItem()
-//    );
-    // I will just put some random data for now (Dummy data)
     private static Collection<MusicItem> musicItemCollections = new ArrayList<>();
     private static MusicCollection musicCollection = null;
+    private static Map<MusicItem, Integer> PLAYED_MUSIC_HISTORY = new HashMap<>();
 
     static {
         musicItemCollections.add(new MusicItem("Goyard", "Keith Ape",
@@ -89,10 +85,6 @@ public class MusicCollection implements MusicUtilities {
                 MusicGenre.POP, MusicRegions.CENTRAL_SOUTH_AMERICA, "1991", "Magia"));
 
     }
-
-    private static Queue<MusicItem> playlist = null;
-    private static double totalMoneyEarned;
-
 
     // private constructor
     private MusicCollection() {
@@ -459,13 +451,50 @@ public class MusicCollection implements MusicUtilities {
     }
 
     @Override
-    public void play() {
-
+    public void play(Queue<MusicItem> userSelectedSong) throws IllegalArgumentException {
+        if (userSelectedSong == null || userSelectedSong.isEmpty()) {
+            throw new IllegalArgumentException("IllegalArgumentException=>play(Queue<MusicItem> userSelectedSong)" +
+                    " I cannot play song with empty play list...");
+        }
+        for (MusicItem selectedSong: userSelectedSong) {
+            updatePlayedMusicRecordHelper(selectedSong);
+            selectedSong.play();
+        }
     }
 
     @Override
     public void printInvoice() {
+        System.out.println("=".repeat(5) + "Invoice of my Music Junk Box" + "=".repeat(5) + "\n");
+        // System.out.println(PLAYED_MUSIC_HISTORY);
+        if (PLAYED_MUSIC_HISTORY == null || PLAYED_MUSIC_HISTORY.isEmpty()) {
+            System.out.println("No music had been played...");
+            System.out.println("=".repeat(15));
+            System.out.println("Total $: " + calculateInvoice());
+        } else {
+            for (Map.Entry<MusicItem, Integer> entry: PLAYED_MUSIC_HISTORY.entrySet()) {
+                System.out.println(entry.getKey() + " played count: "
+                        + entry.getValue() + ", $" + (MusicItem.getDefaultPrice() * entry.getValue()));
+            }
+            System.out.println("=".repeat(15));
+            System.out.println("Total $: " + calculateInvoice());
+        }
+    }
 
+    // ===========================================
+    // private helper method to calculate total earn through this music junk
+    private double calculateInvoice() {
+        double totalEarn = MusicItem.getDefaultPrice() * MusicItem.getSongCounter();
+        return totalEarn;
+    }
+
+    // ============================================
+    // private helper method for display playedMusicHistory
+    private void updatePlayedMusicRecordHelper(MusicItem playedSong) {
+        if (PLAYED_MUSIC_HISTORY.containsKey(playedSong)) {
+            PLAYED_MUSIC_HISTORY.replace(playedSong, PLAYED_MUSIC_HISTORY.get(playedSong) + 1);
+        } else {
+            PLAYED_MUSIC_HISTORY.put(playedSong, 1);
+        }
     }
 
     // ============================================

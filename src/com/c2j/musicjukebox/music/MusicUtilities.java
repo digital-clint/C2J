@@ -2,6 +2,7 @@ package com.c2j.musicjukebox.music;
 
 import java.sql.Date;
 import java.util.Collection;
+import java.util.Queue;
 
 public interface MusicUtilities {
     public Collection<MusicItem> findByTitle(String targetTitle) throws IllegalArgumentException;
@@ -20,6 +21,6 @@ public interface MusicUtilities {
     // public Collection<MusicItem> findByYear(Date targetYear) throws IllegalArgumentException;
     public Collection<MusicItem> findByAlbum(String targetAlbum) throws IllegalArgumentException;
     public void displayAllMusic(String sortedWay) throws IllegalArgumentException;
-    public void play();
+    public void play(Queue<MusicItem> userSelectedSong) throws IllegalArgumentException;
     public void printInvoice();
 }
