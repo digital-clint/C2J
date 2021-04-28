@@ -77,8 +77,6 @@ public class MusicJukeBoxMenu {
         }
     }
 
-
-
     public void displayJukeboxOptions(){
         System.out.println("1) View all songs in Jukebox");
         System.out.println("2) Pick a song from from a certain genre");
@@ -367,8 +365,22 @@ public class MusicJukeBoxMenu {
     public void findSongByAlbumName(){
         System.out.println("Please enter the name of the album the song was featured on: ");
         userInput = scan.nextLine();
-        Collection<MusicItem> songsFoundByAlbumName = jukeboxConsole.findByAlbum(userInput);
-        System.out.println("Song to be added to queue: " + songRetrievedByAlbumName(songsFoundByAlbumName));
+
+        Collection<MusicItem> songsFoundByAlbumName = null;
+        boolean isValidOption = true;
+        try{
+            songsFoundByAlbumName = jukeboxConsole.findByAlbum(userInput);
+        } catch (IllegalArgumentException e){
+            isValidOption = false;
+            System.out.println(e.getMessage());
+        } finally {
+            if (isValidOption){
+                System.out.println("Song to be added to queue: " + songRetrievedByAlbumName(songsFoundByAlbumName));
+            } else {
+                System.out.println("-------------------------------------------");
+                findSongByAlbumName();
+            }
+        }
     }
 
     public MusicItem songRetrievedByAlbumName(Collection<MusicItem> songAlbumNameCollectionArg){
