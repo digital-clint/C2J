@@ -596,6 +596,7 @@ public class MusicJukeBoxMenu {
         if (userNumChoice == 2){
             String overrideText = "";
             viewSongRequests.musicRequested(overrideText);
+            adminHomePage();
         }
     }
 
