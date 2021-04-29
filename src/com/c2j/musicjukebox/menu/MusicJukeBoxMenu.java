@@ -79,7 +79,7 @@ public class MusicJukeBoxMenu {
             while(!musicItemQueue.isEmpty()){
                 musicItemQueue.poll();
             }
-            musicItemQueue.poll();
+            
             runAgain();
         } else if (userNumChoice == 2){
             goodBye();
