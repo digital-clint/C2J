@@ -106,8 +106,7 @@ public class MusicCollection implements MusicUtilities {
     @Override
     public Collection<MusicItem> findByTitle(String targetTitle) throws IllegalArgumentException {
         if (targetTitle == null || targetTitle.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByTitle(String targetTitle)" +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException("You must put target title as input.");
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
@@ -117,7 +116,6 @@ public class MusicCollection implements MusicUtilities {
 
         // best possible matching
         if (foundSongs == null || foundSongs.size() == 0) {
-            System.out.println("IT gets ehere");
             foundSongs = musicItemCollections.stream()
                     .filter(item -> item.getTitle().toLowerCase()
                             .startsWith(targetTitle.toLowerCase()))
@@ -130,7 +128,6 @@ public class MusicCollection implements MusicUtilities {
         // second best possible matching
         // base logic for if there are no exact matching song
         if (foundSongs == null || foundSongs.size() == 0) {
-            System.out.println("IT should not gets ehere");
             // check if target title
             // get every thing starts from partial
             for (int i = 0; i < targetTitle.length(); i++) {
@@ -147,17 +144,20 @@ public class MusicCollection implements MusicUtilities {
 
         // if the size of the collection is still null or zero
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByTitle(String targetTitle)" +
-                    " we cannot find any matching song or contains any character you had inserted in");
+            throw new IllegalArgumentException("We cannot find any matching song or contains any character " +
+                    "you had inserted in");
         }
         return foundSongs;
     }
 
     @Override
     public Collection<MusicItem> findByRegion(String targetByRegion) throws IllegalArgumentException {
+        final String findByRegionNullEmptyExceptionMessage = "You must put region as input.\n" +
+                "Supported Region: ASIA, AFRICA, AUSTRALIA, EUROPE, NORTH_AMERICA, CENTRAL_SOUTH_AMERICA.";
+        final String findByRegionNotFound = "We cannot find any matching song or contains any character you had inserted in\n" +
+                "Supported Region: ASIA, AFRICA, AUSTRALIA, EUROPE, NORTH_AMERICA, CENTRAL_SOUTH_AMERICA.";
         if (targetByRegion == null || targetByRegion.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByRegion(String targetByRegion)" +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException(findByRegionNullEmptyExceptionMessage);
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
@@ -180,10 +180,8 @@ public class MusicCollection implements MusicUtilities {
 
         // second best possible matching
         if (foundSongs == null || foundSongs.size() == 0) {
-            // System.out.println("Should not get here");
             for (int i = 0; i < targetByRegion.length(); i++) {
                 String firstCharactertargetTitle = targetByRegion.substring(0, targetByRegion.length() - i);
-                // System.out.println(firstCharactertargetTitle);
                 foundSongs = musicItemCollections.stream()
                         .filter(item -> item.getMusicRegions().toString()
                                 .toLowerCase()
@@ -197,17 +195,20 @@ public class MusicCollection implements MusicUtilities {
 
         // if the size of the collection is still null or zero
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByTitle(String targetTitle)" +
-                    " we cannot find any matching song or contains any character you had inserted in");
+            throw new IllegalArgumentException(findByRegionNotFound);
         }
         return foundSongs;
     }
 
     @Override
     public Collection<MusicItem> findByRegion(MusicRegions targetByRegion) throws IllegalArgumentException {
+        final String findByRegionNullEmptyExceptionMessage = "You must put region as input.\n" +
+                        "Supported Region: ASIA, AFRICA, AUSTRALIA, EUROPE, NORTH_AMERICA, CENTRAL_SOUTH_AMERICA.";
+        final String findByRegionNotFound = "We cannot find any matching song or contains any character you had inserted in\n" +
+                "Supported Region: ASIA, AFRICA, AUSTRALIA, EUROPE, NORTH_AMERICA, CENTRAL_SOUTH_AMERICA.";
+
         if (targetByRegion == null) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByRegion(String targetByRegion)" +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException(findByRegionNullEmptyExceptionMessage);
         }
 
         Collection<MusicItem> foundSongs = null;
@@ -217,17 +218,18 @@ public class MusicCollection implements MusicUtilities {
                 .collect(Collectors.toList());
 
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByRegion(MusicItem.Regions targetTitle)" +
-                    " we cannot find any matching song or contains any character you had inserted in");
+            throw new IllegalArgumentException(findByRegionNotFound);
         }
         return foundSongs;
     }
 
     @Override
     public Collection<MusicItem> findByArtist(String targetArtist) throws IllegalArgumentException {
+        final String findByArtistNullEmptyExceptionMessage = "You must put an artist as input.";
+        final String findByArtistNotFound = "We cannot find any matching artist or contains any character you had inserted in.";
+
         if (targetArtist == null || targetArtist.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByArtist(String targetArtist)" +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException(findByArtistNullEmptyExceptionMessage);
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
@@ -261,17 +263,21 @@ public class MusicCollection implements MusicUtilities {
 
         // cannot find what customer really wants
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByArtist(String targetArtist)" +
-                    " we cannot find any matching song or contains any character you had inserted in");
+            throw new IllegalArgumentException(findByArtistNotFound);
         }
         return foundSongs;
     }
 
     @Override
     public Collection<MusicItem> findByGenre(String targetGenre) throws IllegalArgumentException {
+        final String findByGenreNullEmptyExceptionMessage =
+                        "You must put Genre as an input.\n" +
+                        "Supported Regions: BLUES, CLASSICAL, CLASSIC_ROCK, COUNTRY, JAZZ, POP, RAP, ROCK.";
+        final String findByGenreNotFound = "We cannot find any matching genre that contains any character you had inserted in\n" +
+                "Supported Regions: BLUES, CLASSICAL, CLASSIC_ROCK, COUNTRY, JAZZ, POP, RAP, ROCK.";
+
         if (targetGenre == null || targetGenre.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByGenre(String targetGenre)" +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException(findByGenreNullEmptyExceptionMessage);
         }
 
         Collection<MusicItem> foundSongs = null;
@@ -309,18 +315,20 @@ public class MusicCollection implements MusicUtilities {
         }
         // cannot find what customer really wants
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByGenre(String targetGenre)" +
-                    " we cannot find any matching song or contains any character you had inserted in");
+            throw new IllegalArgumentException(findByGenreNotFound);
         }
-
         return foundSongs;
     }
 
     @Override
     public Collection<MusicItem> findByGenre(MusicGenre targetGenre) throws IllegalArgumentException {
+        final String findByGenreNullEmptyExceptionMessage = "You must put Genre as input.\n" +
+                        "Supported Region: BLUES, CLASSICAL, CLASSIC_ROCK, COUNTRY, JAZZ, POP, RAP, ROCK.";
+        final String findByGenreNotFound = "We cannot find any matching genre that contains any character you had inserted in\n" +
+                "Supported Region: BLUES, CLASSICAL, CLASSIC_ROCK, COUNTRY, JAZZ, POP, RAP, ROCK.";
+
         if (targetGenre == null) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByGenre(MusicGenre targetGenre) " +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException(findByGenreNullEmptyExceptionMessage);
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
@@ -329,39 +337,47 @@ public class MusicCollection implements MusicUtilities {
                 .collect(Collectors.toList());
 
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByGenre(MusicGenre targetGenre) " +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException(findByGenreNotFound);
         }
         return foundSongs;
     }
 
     @Override
     public Collection<MusicItem> findByYear(String targetYear) throws IllegalArgumentException {
+        String minimumYearInMusicDataSet = getMinimumYearInDataSet();
+        String maximumYearInMusicDataSet = getMaximumYearInDataSet();
+        final String findByYearNullOREMPTYExceptionMessage = "You must put target year as input.\n" +
+                "Minimum year: " + minimumYearInMusicDataSet + " to " + maximumYearInMusicDataSet;
+
+        final String findByYearNotANumberExceptionMessage = "The year must only contains numbers\n" +
+                "Minimum year: " + minimumYearInMusicDataSet + " to " + maximumYearInMusicDataSet;
+
+        final String findByYearNotAValidYearExceptionMessage = "You must put a valid year\nFor example: 2021.\n";
+
+        final String findByYearNotFoundDataExceptionMessage = "Sorry, we cannot find any musics that released " +
+                "on inserted year.\n" + getReleasedYearDistribution();
+
         if (targetYear == null || targetYear.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear" +
-                    " you must put target year as input.");
+            throw new IllegalArgumentException(findByYearNullOREMPTYExceptionMessage);
         }
         // check ascii for special character
         for (int i = 0; i < targetYear.length(); i++) {
             char eachLetter = targetYear.charAt(i);
             if (!(eachLetter >= '0' && eachLetter <= '9')) {
                 // System.out.println("Got in here");
-                throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear)" +
-                        " The year must only contains numbers");
+                throw new IllegalArgumentException(findByYearNotANumberExceptionMessage);
             }
         }
 
         // check if user year input is length of 4
         if (targetYear.trim().length() > 4) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear" +
-                    " you must put year\nFor example: 2021.");
+            throw new IllegalArgumentException(findByYearNotAValidYearExceptionMessage);
         }
         int currentYearInteger = Calendar.getInstance().get(Calendar.YEAR);
         int userInputYearInteger = Integer.parseInt(targetYear);
         // check if user year input is not bigger than current year
         if (userInputYearInteger > currentYearInteger) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear" +
-                    " you must put target year that is not in future as input.");
+            throw new IllegalArgumentException("You must put a target year that is not in future as input.");
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
@@ -371,17 +387,18 @@ public class MusicCollection implements MusicUtilities {
 
         // if cannot find anything that
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByYear(String targetYear) " +
-                    " you must put target targetYear as input.");
+            throw new IllegalArgumentException(findByYearNotFoundDataExceptionMessage);
         }
         return foundSongs;
     }
 
     @Override
     public Collection<MusicItem> findByAlbum(String targetAlbum) throws IllegalArgumentException {
+        final String findByAlbumNotFoundExceptionMessage = "we cannot find any matching song or contains " +
+                "any character you had inserted in\n" + getAlbumDistribution();
+
         if (targetAlbum == null || targetAlbum.length() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByAlbum(String targetAlbum)" +
-                    " you must put target title as input.");
+            throw new IllegalArgumentException("You must put target title as input.");
         }
         Collection<MusicItem> foundSongs = null;
         foundSongs = musicItemCollections.stream()
@@ -413,8 +430,7 @@ public class MusicCollection implements MusicUtilities {
         }
         
         if (foundSongs == null || foundSongs.size() == 0) {
-            throw new IllegalArgumentException("IllegalArgumentException=>findByAlbum(String targetAlbum)" +
-                    " we cannot find any matching song or contains any character you had inserted in");
+            throw new IllegalArgumentException(findByAlbumNotFoundExceptionMessage);
         }
         return foundSongs;
     }
@@ -456,8 +472,7 @@ public class MusicCollection implements MusicUtilities {
     @Override
     public void play(Queue<MusicItem> userSelectedSong) throws IllegalArgumentException {
         if (userSelectedSong == null || userSelectedSong.isEmpty()) {
-            throw new IllegalArgumentException("IllegalArgumentException=>play(Queue<MusicItem> userSelectedSong)" +
-                    " I cannot play song with empty play list...");
+            throw new IllegalArgumentException("I cannot play song with empty play list...");
         }
         for (MusicItem selectedSong: userSelectedSong) {
             updatePlayedMusicRecordHelper(selectedSong);
@@ -495,6 +510,68 @@ public class MusicCollection implements MusicUtilities {
                     .forEach(System.out::println);
 
         }
+    }
+
+    // ==========================================
+    // private helper method to get the minimum year in the music data-set
+    private String getMinimumYearInDataSet() {
+        String minimumYearInString = musicItemCollections.stream()
+                .map(musicItemReleasedYear -> musicItemReleasedYear.getYear())
+                .sorted()
+                .limit(1)
+                .collect(Collectors.joining());
+        return minimumYearInString;
+    }
+
+    // =========================================
+    // private helper method to get the maximum year in the music data-set
+    private String getMaximumYearInDataSet() {
+        String maximumYearInString = musicItemCollections.stream()
+                .sorted(Comparator.comparing(MusicItem::getYear).reversed())
+                .map(musicItemReleasedYear -> musicItemReleasedYear.getYear())
+                .limit(1)
+                .collect(Collectors.joining());
+        return maximumYearInString;
+    }
+
+    // ==========================================
+    // private helper method to get released year distribution in music data-set
+    private String getReleasedYearDistribution() {
+        StringBuilder releasedYearDisBuilder = new StringBuilder();
+        // get minimum year from the music data-set to get starting point
+        int minYear = Integer.parseInt(getMinimumYearInDataSet().substring(0,4));
+        // get current year to set up the ending point
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        String currentYearString = String.valueOf(currentYear).substring(0,4);
+        int maxYear = Integer.parseInt(currentYearString);
+
+        for (int i = minYear; i <= maxYear; i++) {
+            String targetYear = String.valueOf(i).substring(0, 4);
+            long count = musicItemCollections.stream()
+                    .filter(musicItem -> musicItem.getYear().equals(targetYear))
+                    .count();
+            if (count == 0) {
+                continue;
+            }
+            releasedYearDisBuilder.append("Year: " + targetYear + ", we have " + count + "\n");
+        }
+        return releasedYearDisBuilder.toString();
+    }
+
+    // ===========================================
+    // private helper method to get lists of album that music data-set contains
+    private String getAlbumDistribution() {
+        StringBuilder albumStrBuilder = new StringBuilder();
+        List<String> distinctAlbumList = musicItemCollections.stream()
+                .map(eachMusicAlbum -> eachMusicAlbum.getAlbum())
+                .distinct()
+                .collect(Collectors.toUnmodifiableList());
+        // loop through the list and append data into stringBuilder
+        albumStrBuilder.append("List of albums in the music data-set\n");
+        for (int i = 0; i < distinctAlbumList.size(); i++) {
+            albumStrBuilder.append(distinctAlbumList.get(i) + "\n");
+        }
+        return albumStrBuilder.toString();
     }
 
     // ===========================================
@@ -574,11 +651,7 @@ public class MusicCollection implements MusicUtilities {
 
     private void displayAllMusicSortedByReleasedYear() {
         // prepare data
-        String minimumYearInString = musicItemCollections.stream()
-                .map(musicItemReleasedYear -> musicItemReleasedYear.getYear())
-                .sorted()
-                .limit(1)
-                .collect(Collectors.joining());
+        String minimumYearInString = getMinimumYearInDataSet();
         // get minimum year from the music data-set to get starting point
         int minYear = Integer.parseInt(minimumYearInString.substring(0,3));
         // get current year to set up the ending point
