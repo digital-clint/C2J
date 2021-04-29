@@ -74,6 +74,7 @@ public class MusicJukeBoxMenu {
         System.out.println("Thanks for using the C2J Jukebox!");
         System.out.println("In the future we hope to add more songs you'd like to play...");
         System.out.println("♪ ♪ ♫ ♪ ♪ ♫");
+        System.exit(0);
     }
 
     public void continueOrQuit() {
@@ -85,7 +86,6 @@ public class MusicJukeBoxMenu {
         userNumChoice = Integer.parseInt(userInput);
         System.out.println();
         System.out.println("------------------------------------------");
-
         try {
             if (musicItemQueue.isEmpty()) {
                 throw new IllegalArgumentException();
@@ -98,10 +98,15 @@ public class MusicJukeBoxMenu {
             if (userNumChoice == 2) {
                 goodBye();
             } else {
-                jukeboxConsole.play(musicItemQueue);
-                while(!musicItemQueue.isEmpty()){
-                    musicItemQueue.poll();
+                try {
+                    jukeboxConsole.play(musicItemQueue);
+                    while(!musicItemQueue.isEmpty()){
+                        musicItemQueue.poll();
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.println(iae.getMessage());
                 }
+
             }
             runAgain();
         }
@@ -109,7 +114,6 @@ public class MusicJukeBoxMenu {
 
     public void noChoiceRunAgain(){
         System.out.println();
-        System.out.println("You only viewed the inventory of songs...");
         System.out.println("Would you like to pick a song to play this time?");
         System.out.print("Enter - Yes or No: ");
         userInput = scan.nextLine();
@@ -160,7 +164,6 @@ public class MusicJukeBoxMenu {
             System.out.println();
             displayJukeboxOptions();
         }
-
         switch (userNumChoice){
             case 1:
                 viewAllSongs();
@@ -236,8 +239,6 @@ public class MusicJukeBoxMenu {
         }
 
         songsSortedByOptions(userNumChoice);
-
-
     }
 
     public void songsSortedByOptions(int sortNumChoice){
@@ -609,10 +610,15 @@ public class MusicJukeBoxMenu {
             viewSongRequests.musicRequested();
             adminHomePage();
         }
+
+        if (userNumChoice == 3) {
+            adminLogout();
+        }
     }
 
     public void adminLogout(){
         System.out.println("You are now logged out of the C2J Jukebox...");
+        System.exit(0);
     }
 
 
