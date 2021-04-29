@@ -1,5 +1,6 @@
 package com.c2j.musicjukebox.menu;
 
+import com.c2j.musicjukebox.admin.MusicJukeBoxAdmin;
 import com.c2j.musicjukebox.music.MusicCollection;
 import com.c2j.musicjukebox.music.MusicItem;
 
@@ -16,6 +17,8 @@ public class MusicJukeBoxMenu {
     boolean onlyViewedSongListing = false;
     boolean adminLogin;
     private static Queue<MusicItem> musicItemQueue = new PriorityQueue<MusicItem>();
+    private MusicJukeBoxAdmin adminAccount = new MusicJukeBoxAdmin();
+    private int lockoutCount = 1;
 
 
 
@@ -503,7 +506,68 @@ public class MusicJukeBoxMenu {
 
     public void loginAsAdmin(){
         adminLogin = true;
-        System.out.println("case 7");
+        System.out.print("Enter Admin Username: ");
+        String adminUserNameInput = scan.nextLine();
+        System.out.print("Enter Admin Password: ");
+        String adminPasswordInput = scan.nextLine();
+
+        String adminUserName = adminAccount.getAdminUsername();
+        String adminUserPassword = adminAccount.getAdminPassword();
+
+        if (lockoutCount == 3){
+            System.out.println("You've entered your username or password incorrectly too many times...");
+            System.out.println("Please contact the C2J Jukebox Support Team!");
+            System.exit(0);
+        } else if (!adminUserNameInput.equals(adminUserName) || !adminPasswordInput.equals(adminUserPassword)){
+            System.out.println("Invalid username or password!!!");
+            lockoutCount++;
+            loginAsAdmin();
+        } else {
+            adminWelcome();
+            adminHomePage();
+        }
+
+    }
+
+    public void adminWelcome(){
+        System.out.println("[-_-] Welcome Admin [-_-] ");
+        System.out.println();
+        System.out.println("What would you like to do?");
+    }
+
+    public void adminHomePage(){
+        int count = 0;
+        System.out.println("Please choose an option below...");
+        System.out.println();
+        System.out.println("1) Print Invoice");
+        count++;
+        System.out.println("2) Logout");
+        count++;
+
+        System.out.println();
+        System.out.print("Please enter the number of your selection: ");
+        userInput = scan.nextLine();
+        System.out.println("-------------------------------------------");
+
+        try {
+            userNumChoice = Integer.parseInt(userInput);
+            if(userNumChoice != (int)userNumChoice || userNumChoice > count || userNumChoice < 1 ){
+                throw new NumberFormatException();
+            }
+        }
+        catch(NumberFormatException e) {
+            System.out.println("Please enter a valid number!");
+            System.out.println();
+            adminHomePage();
+        }
+
+        if (userNumChoice == 1){
+            System.out.println("$$$$$$$$ Printing Invoice $$$$$$$$$");
+            System.out.println("------------------------------------");
+            System.out.println();
+            System.out.println("Welcome Back to your home page!");
+            adminHomePage();
+        }
     }
 
     public void adminLogout(){
