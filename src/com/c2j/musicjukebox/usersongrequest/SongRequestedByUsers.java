@@ -10,8 +10,8 @@ import java.io.FileReader;
 public class SongRequestedByUsers {
             public void musicRequested(){
             try{
-            BufferedReader songsAlreadyRequested = new BufferedReader(
-                    new FileReader("C:\\Users\\jhurtaul\\Desktop\\SDE Cohort\\StudentWork\\Java_LabSetup_Part-2\\StudentWork\\IntmJ\\workspace\\C2J"));
+                BufferedReader songsAlreadyRequested = new BufferedReader(
+                    new FileReader("C:\\Users\\jhurtaul\\Desktop\\SDE Cohort\\StudentWork\\Java_LabSetup_Part-2\\StudentWork\\IntmJ\\workspace\\C2J\\songsRequested.txt"));
                 String songFile;
 
                 while ((songFile = songsAlreadyRequested.readLine()) != null){

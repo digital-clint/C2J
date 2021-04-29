@@ -532,6 +532,7 @@ public class MusicJukeBoxMenu {
         } catch (IOException e){
             System.out.println("Please enter a valid song");
         }
+        displayJukeboxOptions();
     }
 
 

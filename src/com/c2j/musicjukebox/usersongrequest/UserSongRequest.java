@@ -60,7 +60,7 @@ import java.util.stream.Collectors;
             boolean songFile = titles.stream().anyMatch(a -> a.equalsIgnoreCase(searchTitle));
 
             if (songFile) {
-                System.out.println("\n This song " + searchTitle + " has already been requested! Please allow us some time to add it");
+                System.out.println("\n This song, " + searchTitle + " has already been requested! Please allow us some time to add it");
             }
             return songFile;
 
