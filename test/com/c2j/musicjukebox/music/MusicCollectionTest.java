@@ -111,8 +111,7 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByTitleEmptyStringInput() {
-        final String exceptionMessage = "IllegalArgumentException=>findByTitle(String targetTitle) " +
-                "you must put target title as input.";
+        final String exceptionMessage = "You must put target title as input.";
         Collection<MusicItem> emptyData = null;
         try {
             emptyData = defaultCollection.findByTitle("");
@@ -124,8 +123,7 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByTitleZeroPartial() {
-        final String exceptionMessage = "IllegalArgumentException=>findByTitle(String targetTitle) " +
-                "we cannot find any matching song or contains any character you had inserted in";
+        final String exceptionMessage = "We cannot find any matching song or contains any character you had inserted in";
         Collection<MusicItem> emptyData = null;
         try {
             emptyData = defaultCollection.findByTitle("#;=-");
@@ -333,8 +331,8 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByRegionZeroPartial() {
-        final String exceptionMessage = "IllegalArgumentException=>findByTitle(String targetTitle)" +
-                " we cannot find any matching song or contains any character you had inserted in";
+        final String exceptionMessage = "We cannot find any matching song or contains any character you had inserted in\n" +
+                "Supported Region: ASIA, AFRICA, AUSTRALIA, EUROPE, NORTH_AMERICA, CENTRAL_SOUTH_AMERICA.";
         Collection<MusicItem> randomNoMatchingData = null;
         try {
             randomNoMatchingData = defaultCollection.findByRegion("#$%^");
@@ -424,8 +422,7 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByArtistEmptyStringInput() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByArtist(String targetArtist)" +
-                " you must put target title as input.";
+        final String expectedExceptionMessage = "You must put an artist as input.";
         Collection<MusicItem> emptyData = null;
         try {
             emptyData = defaultCollection.findByArtist("");
@@ -437,8 +434,7 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByArtistZeroPartial() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByArtist(String targetArtist)" +
-                " we cannot find any matching song or contains any character you had inserted in";
+        final String expectedExceptionMessage = "We cannot find any matching artist or contains any character you had inserted in.";
         Collection<MusicItem> notMatchingAndPartial = null;
         try {
             notMatchingAndPartial = defaultCollection.findByArtist("#$^#@#$");
@@ -641,8 +637,8 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByGenreEmptyStringInput() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByGenre(String targetGenre)" +
-                " you must put target title as input.";
+        final String expectedExceptionMessage = "You must put Genre as an input.\n" +
+                "Supported Regions: BLUES, CLASSICAL, CLASSIC_ROCK, COUNTRY, JAZZ, POP, RAP, ROCK.";
         Collection<MusicItem> emptyData = null;
         try {
             emptyData = defaultCollection.findByGenre("");
@@ -654,8 +650,8 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByGenreNotEvenPartiallyMatching() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByGenre(String targetGenre)" +
-                " we cannot find any matching song or contains any character you had inserted in";
+        final String expectedExceptionMessage = "We cannot find any matching genre that contains any character you had inserted in\n" +
+                "Supported Regions: BLUES, CLASSICAL, CLASSIC_ROCK, COUNTRY, JAZZ, POP, RAP, ROCK.";
         Collection<MusicItem> notEvenPartialData = null;
         try {
             notEvenPartialData = defaultCollection.findByGenre("!@#$");
@@ -698,24 +694,18 @@ public class MusicCollectionTest {
         fail("This line should never run");
     }
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void testFindYearEmptyInput() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByYear(String targetYear" +
-                " you must put target year as input.";
         Collection<MusicItem> emptyData = null;
-        try {
-            emptyData = defaultCollection.findByYear("");
-            fail("This line should never run");
-        } catch (IllegalArgumentException iae) {
-            assertEquals(expectedExceptionMessage, iae.getMessage());
-        }
+          emptyData = defaultCollection.findByYear("");
+          fail("This line should never run");
     }
 
     // CASE 2.2: Input Length bigger than 4
     @Test
     public void testFindYearLengthLongerThanFourInput() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByYear(String targetYear" +
-                " you must put year\nFor example: 2021.";
+        final String expectedExceptionMessage = "You must put a valid year\n" +
+                "For example: 2021.\n";
         Collection<MusicItem> lengthLongerThanFour = null;
         try {
             lengthLongerThanFour = defaultCollection.findByYear("123123");
@@ -728,8 +718,7 @@ public class MusicCollectionTest {
     // CASE 2.3: Input year that is bigger than current year
     @Test
     public void testFindYearInputBiggerThanCurrentYear() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByYear(String targetYear" +
-                " you must put target year that is not in future as input.";
+        final String expectedExceptionMessage = "You must put a target year that is not in future as input.";
         Collection<MusicItem> futureYearData = null;
         try {
             // notice the year is future, this code written in 2021
@@ -743,13 +732,55 @@ public class MusicCollectionTest {
 
     // CASE 2.4: The year does not exist in the music data-set
     @Test
-    public void testFindYearInputDoesNotExist() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByYear(String targetYear)" +
-                " The year must only contains numbers";
+    public void testFindYearInputDoesNotExistRandomWord() {
+        final String expectedExceptionMessage = "The year must only contains numbers\n" +
+                "Minimum year: 1959 to 2020";
         Collection<MusicItem> doesNotExistData = null;
         try {
             // notice the year is future, this code written in 2021
             doesNotExistData = defaultCollection.findByYear("!@#!@$");
+            fail("This line should never run");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(expectedExceptionMessage, iae.getMessage());
+        }
+    }
+
+    // CASE 2.5: The year does not exist in the music data-set
+    @Test
+    public void testFindYearInputDoesNotExistInYear() {
+        final String expectedExceptionMessage = "Sorry, we cannot find any musics that released on inserted year.\n" +
+                "Year: 1959, we have 1\n" +
+                "Year: 1962, we have 1\n" +
+                "Year: 1964, we have 1\n" +
+                "Year: 1967, we have 1\n" +
+                "Year: 1972, we have 1\n" +
+                "Year: 1973, we have 1\n" +
+                "Year: 1976, we have 1\n" +
+                "Year: 1981, we have 1\n" +
+                "Year: 1982, we have 1\n" +
+                "Year: 1987, we have 1\n" +
+                "Year: 1991, we have 1\n" +
+                "Year: 1994, we have 1\n" +
+                "Year: 1995, we have 1\n" +
+                "Year: 2000, we have 1\n" +
+                "Year: 2002, we have 1\n" +
+                "Year: 2004, we have 1\n" +
+                "Year: 2005, we have 1\n" +
+                "Year: 2008, we have 1\n" +
+                "Year: 2009, we have 1\n" +
+                "Year: 2010, we have 4\n" +
+                "Year: 2011, we have 1\n" +
+                "Year: 2012, we have 2\n" +
+                "Year: 2014, we have 1\n" +
+                "Year: 2015, we have 1\n" +
+                "Year: 2017, we have 1\n" +
+                "Year: 2018, we have 2\n" +
+                "Year: 2019, we have 3\n" +
+                "Year: 2020, we have 2\n";
+        Collection<MusicItem> doesNotExistData = null;
+        try {
+            // notice the year is future, this code written in 2021
+            doesNotExistData = defaultCollection.findByYear("1966");
             fail("This line should never run");
         } catch (IllegalArgumentException iae) {
             assertEquals(expectedExceptionMessage, iae.getMessage());
@@ -872,8 +903,7 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByAlbumEmptyInput() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByAlbum(String targetAlbum)" +
-                " you must put target title as input.";
+        final String expectedExceptionMessage = "You must put target title as input.";
         Collection<MusicItem> emptyData = null;
         try {
             emptyData = defaultCollection.findByAlbum("");
@@ -885,8 +915,43 @@ public class MusicCollectionTest {
 
     @Test
     public void testFindByAlbumNotExistPartial() {
-        final String expectedExceptionMessage = "IllegalArgumentException=>findByAlbum(String targetAlbum)" +
-                " we cannot find any matching song or contains any character you had inserted in";
+        final String expectedExceptionMessage = "we cannot find any matching song or contains any character you had inserted in\n" +
+                "List of albums in the music data-set\n" +
+                "MixtAPE #1\n" +
+                "In A Different Mood\n" +
+                "Trance X\n" +
+                "ou Wanna Rain\n" +
+                "Tri4th\n" +
+                "Japonesque\n" +
+                "The Angel You Don't Know\n" +
+                "The Voice Of Africa\n" +
+                "African Queen\n" +
+                "Ali Farka Touré\n" +
+                "Trumpet Africaine\n" +
+                "Amabutho\n" +
+                "Reclassified\n" +
+                "His Master's Voice\n" +
+                "Lonerism\n" +
+                "Half Mile Harvest\n" +
+                "Two Of A Kind\n" +
+                "Love Monster\n" +
+                "Bags And Boxes\n" +
+                "Evensong\n" +
+                "Parachutes\n" +
+                "Kingfish\n" +
+                "The Eastwest Sessions\n" +
+                "Just A Pretty Face\n" +
+                "Overly Dedicated\n" +
+                "The Pieces That Fall To Earth\n" +
+                "Regional At Best\n" +
+                "Tell Me A Lie\n" +
+                "Forest Flower\n" +
+                "Future Nostalgia\n" +
+                "Bellaca Del Año\n" +
+                "Piano Recital\n" +
+                "Ritchie\n" +
+                "The Departure\n" +
+                "Magia\n";
         Collection<MusicItem> emptyData = null;
         try {
             emptyData = defaultCollection.findByAlbum("!@#asdf");
