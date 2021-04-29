@@ -53,7 +53,7 @@ import java.util.stream.Collectors;
             }
         }
 
-            public static boolean displayResults (String searchTitle, List <String> titles) throws IOException {
+            private boolean displayResults (String searchTitle, List <String> titles) throws IOException {
             if (titles == null){
                 return false;
             }
