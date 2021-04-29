@@ -6,7 +6,7 @@ public class songaddtest {
         public static void main(String[] args) throws IOException {
             UserSongRequest testSong = new UserSongRequest();
 
-            testSong.musicOut("l");
+            testSong.musicOut();
         }
 
 }

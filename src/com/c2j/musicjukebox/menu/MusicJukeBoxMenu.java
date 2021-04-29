@@ -516,9 +516,8 @@ public class MusicJukeBoxMenu {
     }
 
     public void requestASong(){
-        String overrideText = "";
         try {
-            songRequest.musicOut(overrideText);
+            songRequest.musicOut();
         } catch (IOException e){
             System.out.println("Please enter a valid song");
         }
@@ -594,8 +593,7 @@ public class MusicJukeBoxMenu {
         }
 
         if (userNumChoice == 2){
-            String overrideText = "";
-            viewSongRequests.musicRequested(overrideText);
+            viewSongRequests.musicRequested();
             adminHomePage();
         }
     }

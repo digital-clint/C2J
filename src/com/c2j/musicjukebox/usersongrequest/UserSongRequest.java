@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
         // variable to store user input
         Scanner musicIn = new Scanner(System.in);
 
-        public void musicOut (String text) throws IOException {
+        public void musicOut () throws IOException {
             System.out.println("What is the song your wish to be added? ");
 
             // user input captured and text is written with response
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
             }
 
             // validation to ensure that response is not null or 0
-            text = musicIn.nextLine();
+            String text = musicIn.nextLine();
             while (text == null || text.length() == 0) {
                 System.out.println("Please enter a valid response");
                 // will continue to prompt user for a valid response option

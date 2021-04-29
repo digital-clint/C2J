@@ -8,7 +8,7 @@ import java.io.FileReader;
 
 // displays to admin song that has already been requested by user
 public class SongRequestedByUsers {
-            public void musicRequested(String text){
+            public void musicRequested(){
             try{
             BufferedReader songsAlreadyRequested = new BufferedReader(
                     new FileReader("C:\\Users\\jhurtaul\\Desktop\\SDE Cohort\\StudentWork\\Java_LabSetup_Part-2\\StudentWork\\IntmJ\\workspace\\C2J"));
