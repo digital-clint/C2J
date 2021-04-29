@@ -15,6 +15,7 @@ public class MusicJukeBoxMenu {
     private String regionName;
     boolean onlyViewedSongListing = false;
     boolean adminLogin;
+    private static Queue<MusicItem> musicItemQueue = new PriorityQueue<MusicItem>();
 
 
 
@@ -45,16 +46,46 @@ public class MusicJukeBoxMenu {
         userInput = scan.nextLine();
         String lowerCaseUserInput = userInput.toLowerCase();
         if (lowerCaseUserInput.equals("y") || lowerCaseUserInput.equals("yes")){
-            displayJukeboxOptions();
+            start();
         } else if (userInput.toLowerCase().equals("n") || userInput.toLowerCase().equals("no")){
-            System.out.println("-----------------------------------------");
-            System.out.println("Thanks for using the C2J Jukebox!");
-            System.out.println("♪ ♪ ♫ See you soon ♪ ♪ ♫");
+            continueOrQuit();
         }
         else {
             System.out.println();
             System.out.println("Invalid input...try again");
             runAgain();
+        }
+    }
+
+    public void goodBye(){
+        System.out.println("-----------------------------------------");
+        System.out.println("Thanks for using the C2J Jukebox!");
+        System.out.println("In the future we hope to add more songs you'd like to play...");
+        System.out.println("♪ ♪ ♫ ♪ ♪ ♫");
+    }
+
+    public void continueOrQuit(){
+        System.out.println("Would you like to play songs in queue or quit jukebox session?");
+        System.out.println("1) Play songs");
+        System.out.println("2) Quit");
+        System.out.print("Please enter the number of your selection: ");
+        userInput = scan.nextLine();
+        userNumChoice = Integer.parseInt(userInput);
+        System.out.println();
+        System.out.println("------------------------------------------");
+
+        if (userNumChoice == 1){
+            jukeboxConsole.play(musicItemQueue);
+            while(!musicItemQueue.isEmpty()){
+                musicItemQueue.poll();
+            }
+            musicItemQueue.poll();
+            runAgain();
+        } else if (userNumChoice == 2){
+            goodBye();
+        } else {
+            System.out.println("Invalid input...");
+            continueOrQuit();
         }
     }
 
@@ -68,10 +99,7 @@ public class MusicJukeBoxMenu {
         if (lowerCaseUserInput.equals("y") || lowerCaseUserInput.equals("yes")){
             start();
         } else if (userInput.toLowerCase().equals("n") || userInput.toLowerCase().equals("no")){
-            System.out.println("-----------------------------------------");
-            System.out.println("Thanks for using the C2J Jukebox!");
-            System.out.println("In the future we hope to add more songs you'd like to play...");
-            System.out.println("♪ ♪ ♫ ♪ ♪ ♫");
+            continueOrQuit();
         }
         else {
             System.out.println();
@@ -228,7 +256,8 @@ public class MusicJukeBoxMenu {
             System.out.println(e.getMessage());
         } finally {
             if (isValidOption){
-                System.out.println("Song to be added to queue: " + songRetrievedByGenre(songsFoundByGenre));
+                musicItemQueue.add(songRetrievedByGenre(songsFoundByGenre));
+                System.out.println("Adding song to queue..... ");
             } else {
                 System.out.println("-------------------------------------------");
                 pickSongFromGenre();
@@ -281,32 +310,38 @@ public class MusicJukeBoxMenu {
         switch (userNumChoice){
             case 1:
                 regionName = "Asia";
-                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
+                musicItemQueue.add(songRetrievedFromRegion(regionName));
+                System.out.println("Adding song to queue..... ");
                 break;
 
             case 2:
                 regionName = "Africa";
-                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
+                musicItemQueue.add(songRetrievedFromRegion(regionName));
+                System.out.println("Adding song to queue..... ");
                 break;
 
             case 3:
                 regionName = "Australia";
-                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
+                musicItemQueue.add(songRetrievedFromRegion(regionName));
+                System.out.println("Adding song to queue..... ");
                 break;
 
             case 4:
                 regionName = "Europe";
-                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
+                musicItemQueue.add(songRetrievedFromRegion(regionName));
+                System.out.println("Adding song to queue..... ");
                 break;
 
             case 5:
                 regionName = "North America";
-                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
+                musicItemQueue.add(songRetrievedFromRegion(regionName));
+                System.out.println("Adding song to queue..... ");
                 break;
 
             case 6:
                 regionName = "Central South America";
-                System.out.println("Song to be added to queue: " + songRetrievedFromRegion(regionName));
+                musicItemQueue.add(songRetrievedFromRegion(regionName));
+                System.out.println("Adding song to queue..... ");
                 break;
 
             default:
@@ -375,7 +410,8 @@ public class MusicJukeBoxMenu {
         System.out.println("Please enter the name of the song you are looking for?: ");
         userInput = scan.nextLine();
         Collection<MusicItem> songsFoundByTitle = jukeboxConsole.findByTitle(userInput);
-        System.out.println("Song to be added to queue: " + songRetrievedByTitle(songsFoundByTitle));
+        musicItemQueue.add(songRetrievedByTitle(songsFoundByTitle));
+        System.out.println("Adding song to queue..... ");
 
     }
 
@@ -405,7 +441,9 @@ public class MusicJukeBoxMenu {
             System.out.println(e.getMessage());
         } finally {
             if (isValidOption){
-                System.out.println("Song to be added to queue: " + songRetrievedByReleaseYear(songsFoundByYear));
+                musicItemQueue.add(songRetrievedByReleaseYear(songsFoundByYear));
+                System.out.println("Adding song to queue..... ");
+
             } else {
                 System.out.println("-------------------------------------------");
                 findSongByReleaseYear();
@@ -441,7 +479,8 @@ public class MusicJukeBoxMenu {
             System.out.println(e.getMessage());
         } finally {
             if (isValidOption){
-                System.out.println("Song to be added to queue: " + songRetrievedByAlbumName(songsFoundByAlbumName));
+                musicItemQueue.add(songRetrievedByAlbumName(songsFoundByAlbumName));
+                System.out.println("Adding song to queue..... ");
             } else {
                 System.out.println("-------------------------------------------");
                 findSongByAlbumName();
