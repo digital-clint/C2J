@@ -23,6 +23,7 @@ public class MusicJukeBoxMenu {
     private int lockoutCount = 1;
     private UserSongRequest songRequest = new UserSongRequest();
     private SongRequestedByUsers viewSongRequests = new SongRequestedByUsers();
+    boolean songRequested = false;
 
 
 
@@ -35,7 +36,10 @@ public class MusicJukeBoxMenu {
             noChoiceRunAgain();
         } else if(adminLogin == true){
             adminLogout();
-        } else {
+        } else if(songRequested == true){
+            displayJukeboxOptions();
+        }
+        else {
             runAgain();
         }
     }
@@ -72,7 +76,7 @@ public class MusicJukeBoxMenu {
         System.out.println("♪ ♪ ♫ ♪ ♪ ♫");
     }
 
-    public void continueOrQuit(){
+    public void continueOrQuit() {
         System.out.println("Would you like to play songs in queue or quit jukebox session?");
         System.out.println("1) Play songs");
         System.out.println("2) Quit");
@@ -82,18 +86,24 @@ public class MusicJukeBoxMenu {
         System.out.println();
         System.out.println("------------------------------------------");
 
-        if (userNumChoice == 1){
-            jukeboxConsole.play(musicItemQueue);
-            while(!musicItemQueue.isEmpty()){
-                musicItemQueue.poll();
+        try {
+            if (musicItemQueue.isEmpty()) {
+                throw new IllegalArgumentException();
             }
-            
+        } catch (IllegalArgumentException e) {
+            System.out.println("Your music queue is empty....");
+            System.out.println();
+            displayJukeboxOptions();
+        } finally {
+            if (userNumChoice == 2) {
+                goodBye();
+            } else {
+                jukeboxConsole.play(musicItemQueue);
+                while(!musicItemQueue.isEmpty()){
+                    musicItemQueue.poll();
+                }
+            }
             runAgain();
-        } else if (userNumChoice == 2){
-            goodBye();
-        } else {
-            System.out.println("Invalid input...");
-            continueOrQuit();
         }
     }
 
@@ -516,13 +526,15 @@ public class MusicJukeBoxMenu {
     }
 
     public void requestASong(){
+        songRequested = true;
         try {
             songRequest.musicOut();
         } catch (IOException e){
             System.out.println("Please enter a valid song");
         }
-        System.out.println("Song Requested");
     }
+
+
 
     public void loginAsAdmin(){
         adminLogin = true;
