@@ -2,16 +2,13 @@ package com.c2j.musicjukebox.usersongrequest;
 
 import com.c2j.musicjukebox.menu.MusicJukeBoxMenu;
 
-    import java.io.BufferedWriter;
-    import java.io.FileWriter;
-    import java.nio.file.Files;
+import java.io.*;
+import java.nio.file.Files;
     import java.nio.file.Path;
     import java.nio.file.Paths;
     import java.util.List;
     import java.util.Scanner;
-    import java.io.BufferedReader;
-    import java.io.IOException;
-    import java.util.stream.Collectors;
+import java.util.stream.Collectors;
     import java.util.stream.Stream;
 
     public class UserSongRequest {
@@ -23,13 +20,16 @@ import com.c2j.musicjukebox.menu.MusicJukeBoxMenu;
             System.out.println("What is the song your wish to be added? ");
 
             // user input captured and text is written with response
-            text = musicIn.nextLine();
-
-                // path to the songRequested.txt file in order to check if song has already present or requested
+            List<String> songTitles = null;
+            // verifying if file is present in the supplied file path
+            File fileCheck = new File("C:\\Users\\jhurtaul\\Desktop\\SDE Cohort\\StudentWork\\Java_LabSetup_Part-2\\StudentWork\\IntmJ\\workspace\\C2J\\songsRequested.txt");
+            if (fileCheck.exists() && !fileCheck.isDirectory()){
                 Path filePath = Paths.get("C:\\Users\\jhurtaul\\Desktop\\SDE Cohort\\StudentWork\\Java_LabSetup_Part-2\\StudentWork\\IntmJ\\workspace\\C2J\\songsRequested.txt");
-                List<String> songTitles = Files.lines(filePath).collect(Collectors.toList());
+                songTitles = Files.lines(filePath).collect(Collectors.toList());
+            }
 
             // validation to ensure that response is not null or 0
+            text = musicIn.nextLine();
             while (text == null || text.length() == 0) {
                 System.out.println("Please enter a valid response");
                 // will continue to prompt user for a valid response option
@@ -54,6 +54,9 @@ import com.c2j.musicjukebox.menu.MusicJukeBoxMenu;
         }
 
             public static boolean displayResults (String searchTitle, List <String> titles) throws IOException {
+            if (titles == null){
+                return false;
+            }
             boolean songFile = titles.stream().anyMatch(a -> a.equalsIgnoreCase(searchTitle));
 
             if (songFile) {
