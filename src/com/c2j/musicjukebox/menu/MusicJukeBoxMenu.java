@@ -79,13 +79,28 @@ public class MusicJukeBoxMenu {
 
     public void continueOrQuit() {
         System.out.println("Would you like to play songs in queue or quit jukebox session?");
-        System.out.println("1) Play songs");
-        System.out.println("2) Quit");
-        System.out.print("Please enter the number of your selection: ");
-        userInput = scan.nextLine();
-        userNumChoice = Integer.parseInt(userInput);
+
+
         System.out.println();
         System.out.println("------------------------------------------");
+
+        while (true){
+            try {
+                System.out.println("1) Play songs");
+                System.out.println("2) Quit");
+                System.out.print("Please enter the number of your selection: ");
+                userInput = scan.nextLine();
+                userNumChoice = Integer.parseInt(userInput);
+                if(userNumChoice < 1 || userNumChoice > 2){
+                    throw new NumberFormatException();
+                } else {
+                    break;
+                }
+            } catch(NumberFormatException nfe){
+                System.out.println("Invalid input..please choose 1 or 2.");
+            }
+        }
+
         try {
             if (musicItemQueue.isEmpty()) {
                 throw new IllegalArgumentException();
@@ -95,9 +110,7 @@ public class MusicJukeBoxMenu {
             System.out.println();
             displayJukeboxOptions();
         } finally {
-            if (userNumChoice == 2) {
-                goodBye();
-            } else {
+            if(userNumChoice == 1){
                 try {
                     jukeboxConsole.play(musicItemQueue);
                     while(!musicItemQueue.isEmpty()){
@@ -106,7 +119,10 @@ public class MusicJukeBoxMenu {
                 } catch (IllegalArgumentException iae) {
                     System.out.println(iae.getMessage());
                 }
-
+            }else if (userNumChoice == 2) {
+                goodBye();
+            } else {
+                System.out.println("Invalid Selection");
             }
             runAgain();
         }
