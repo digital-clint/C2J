@@ -3,6 +3,8 @@ package com.c2j.musicjukebox.menu;
 import com.c2j.musicjukebox.admin.MusicJukeBoxAdmin;
 import com.c2j.musicjukebox.music.MusicCollection;
 import com.c2j.musicjukebox.music.MusicItem;
+import com.c2j.musicjukebox.usersongrequest.SongRequestedByUsers;
+import com.c2j.musicjukebox.usersongrequest.UserSongRequest;
 
 import java.awt.*;
 import java.io.IOException;
@@ -19,6 +21,9 @@ public class MusicJukeBoxMenu {
     private static Queue<MusicItem> musicItemQueue = new PriorityQueue<MusicItem>();
     private MusicJukeBoxAdmin adminAccount = new MusicJukeBoxAdmin();
     private int lockoutCount = 1;
+    private UserSongRequest songRequest = new UserSongRequest();
+    private SongRequestedByUsers viewSongRequests = new SongRequestedByUsers();
+
 
 
 
@@ -33,7 +38,7 @@ public class MusicJukeBoxMenu {
         } else {
             runAgain();
         }
-    };
+    }
 
     public void welcome(){
         System.out.println("♪ ♪ ♫ Welcome to C2J Jukebox ♪ ♪ ♫ ");
@@ -125,7 +130,9 @@ public class MusicJukeBoxMenu {
         count++;
         System.out.println("6) Find a song by album name");
         count++;
-        System.out.println("7) Login as administrator");
+        System.out.println("7) Don't see a song you like...request one here");
+        count++;
+        System.out.println("8) Login as administrator");
         count++;
         System.out.println();
         System.out.print("Please enter the number of your selection: ");
@@ -171,6 +178,10 @@ public class MusicJukeBoxMenu {
                 break;
 
             case 7:
+                requestASong();
+                break;
+
+            case 8:
                 loginAsAdmin();
                 break;
 
@@ -504,6 +515,16 @@ public class MusicJukeBoxMenu {
         return songRetrieved;
     }
 
+    public void requestASong(){
+        String overrideText = "";
+        try {
+            songRequest.musicOut(overrideText);
+        } catch (IOException e){
+            System.out.println("Please enter a valid song");
+        }
+        System.out.println("Song Requested");
+    }
+
     public void loginAsAdmin(){
         adminLogin = true;
         System.out.print("Enter Admin Username: ");
@@ -541,7 +562,9 @@ public class MusicJukeBoxMenu {
         System.out.println();
         System.out.println("1) Print Invoice");
         count++;
-        System.out.println("2) Logout");
+        System.out.println("2) View User Song Requests");
+        count++;
+        System.out.println("3) Logout");
         count++;
 
         System.out.println();
@@ -563,10 +586,16 @@ public class MusicJukeBoxMenu {
 
         if (userNumChoice == 1){
             System.out.println("$$$$$$$$ Printing Invoice $$$$$$$$$");
+            jukeboxConsole.printInvoice();
             System.out.println("------------------------------------");
             System.out.println();
             System.out.println("Welcome Back to your home page!");
             adminHomePage();
+        }
+
+        if (userNumChoice == 2){
+            String overrideText = "";
+            viewSongRequests.musicRequested(overrideText);
         }
     }
 

@@ -7,7 +7,7 @@ import java.io.FileReader;
 
 
 // displays to admin song that has already been requested by user
-public class SongRequestedByUsers extends MusicJukeBoxMenu {
+public class SongRequestedByUsers {
             public void musicRequested(String text){
             try{
             BufferedReader songsAlreadyRequested = new BufferedReader(

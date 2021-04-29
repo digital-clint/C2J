@@ -14,7 +14,7 @@ import com.c2j.musicjukebox.menu.MusicJukeBoxMenu;
     import java.util.stream.Collectors;
     import java.util.stream.Stream;
 
-    public class UserSongRequest extends MusicJukeBoxMenu {
+    public class UserSongRequest {
 
         // variable to store user input
         Scanner musicIn = new Scanner(System.in);
